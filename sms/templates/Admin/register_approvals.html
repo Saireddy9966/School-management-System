@@ -1,0 +1,704 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %}
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed"
+  data-header-position="fixed">
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12 d-flex align-items-stretch">
+          <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+            <div class="card-body position-relative">
+              <div class="row">
+                <div class="col-sm-7">
+                  <div class="d-flex align-items-center mb-7">
+                    <div class="rounded-circle overflow-hidden me-6">
+                      <img src="{% static 'assets/images/user-1.jpg' %}" alt="" width="50" height="50" />
+                    </div>
+                    <h2 class="fw-semibold mb-0">
+                      Welcome {{ owner.name }}</a></h2>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <div class="welcome-bg-img mb-n7 text-end">
+                    <img src="{% static 'assets/images/welcome-bg.svg' %}" alt="" class="img-fluid" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-xl-3">
+            <div class="card bg-primary-subtle shadow-none">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                  <div class="round rounded text-bg-primary d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people-fill text-white fs-7" title="BTC"></i>
+                  </div>
+                  <h4 class="mb-0 ms-3">Staff</h4>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-4">
+                  <span class="fw-bold">{{ staff_count }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card bg-danger-subtle shadow-none">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                  <div class="round rounded text-bg-danger d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-lines-fill text-white fs-7" title="ETH"></i>
+                  </div>
+                  <h4 class="mb-0 ms-3">Faculty</h4>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-4">
+                  <span class="fw-bold">{{ faculty_count }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card bg-success-subtle shadow-none">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                  <div class="round rounded text-bg-success d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-vcard-fill text-white fs-7" title="LTC"></i>
+                  </div>
+                  <h4 class="mb-0 ms-3">Students</h4>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-4">
+                  <span class="fw-bold">{{ student_count }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card bg-warning-subtle shadow-none">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                  <div class="round rounded text-bg-warning d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-badge-fill text-white fs-7" title=""></i>
+                  </div>
+                  <h4 class="mb-0 ms-3">Parents</h4>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-4">
+                  <span class="fw-bold">{{ parent_count }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-4 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body">
+              <h5>Subjects</h5>
+              <div id="team-performance"></div>
+            </div>
+          </div>
+        </div>
+        <!--GRAPH  -->
+        <h2>Monthly Payment Summary</h2>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <canvas id="paymentChart" width="400" height="200"></canvas>
+
+        <script>
+          const paymentCtx = document.getElementById('paymentChart').getContext('2d');
+          const paymentChart = new Chart(paymentCtx, {
+            type: 'line',
+            data: {
+              labels: {{ months| safe }},
+          datasets: [
+            {
+              label: 'Tuition Fees',
+              data: {{ chart_data.Tuition_Fees | safe }},
+            borderColor: 'blue',
+            backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                },
+            {
+              label: 'Bus Fees',
+              data: {{ chart_data.Bus_Fees | safe }},
+            borderColor: 'green',
+            backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                },
+            {
+              label: 'Mess Fees',
+              data: {{ chart_data.Mess_Fees | safe }},
+            borderColor: 'orange',
+            backgroundColor: 'rgba(255, 165, 0, 0.1)',
+                }
+          ]
+            },
+          options: {
+            responsive: true,
+              scales: {
+              y: { beginAtZero: true },
+            }
+          }
+          });
+        </script>
+
+        <h2>Select Class to View Attendance</h2>
+        <form method="POST" id="class-form">
+          {% csrf_token %}
+          <label for="class">Choose a class:</label>
+          <select id="class" name="class_id">
+            {% for class in classes %}
+            <option value="{{ class.id }}">{{ class.name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+
+        <h2>Student Attendance for <span id="selected-class-name">{{ selected_class.name }}</span></h2>
+        <canvas id="attendanceGraph" width="400" height="200"></canvas>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+          const attendanceCtx = document.getElementById('attendanceGraph').getContext('2d');
+          let attendanceChart = new Chart(attendanceCtx, {
+            type: 'bar',
+            data: {
+              labels: [],
+              datasets: []
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: { beginAtZero: true },
+              }
+            }
+          });
+
+          // Update Attendance Graph Function
+          document.addEventListener("DOMContentLoaded", function () {
+            const classSelect = document.getElementById('class');
+
+            // Fetch attendance for the default class (first option in the dropdown)
+            const defaultClassId = classSelect.options[0].value; // Get the first class ID
+            updateGraph(defaultClassId);
+
+            classSelect.addEventListener('change', function () {
+              updateGraph();
+            });
+
+            function updateGraph() {
+              const classId = classSelect.value;
+
+              fetch('/register_approvals/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: JSON.stringify({ class_id: classId })
+              })
+                .then(response => response.json())
+                .then(data => {
+                  attendanceChart.data.labels = data.months;
+                  attendanceChart.data.datasets = [];
+
+                  data.sections.forEach(section => {
+                    attendanceChart.data.datasets.push({
+                      label: `${section} - Present`,
+                      data: data.present_percentages[section],
+                      backgroundColor: 'rgba(0, 128, 0, 0.5)',
+                      borderColor: 'green',
+                      borderWidth: 1
+                    });
+                    attendanceChart.data.datasets.push({
+                      label: `${section} - Absent`,
+                      data: data.absent_percentages[section],
+                      backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                      borderColor: 'red',
+                      borderWidth: 1
+                    });
+                  });
+
+                  attendanceChart.update();
+                  document.getElementById('selected-class-name').innerText = data.selected_class_name;
+                })
+                .catch(error => console.error('Error fetching attendance data:', error));
+            }
+          });
+        </script>
+
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold">Approvals</h5>
+              <div id="sales-overview" class="mb-4"></div>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  <div class="bg-light-primary rounded-2 me-8 p-8 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-grid-3x3-gap-fill text-primary fs-6"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-semibold text-dark fs-4 mb-0">80%</h6>
+                    <p class="fs-3 mb-0 fw-normal">Accepted</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="bg-light-secondary rounded-2 me-8 p-8 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-grid-3x3-gap-fill text-secondary fs-6"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-semibold text-dark fs-4 mb-0">20%</h6>
+                    <p class="fs-3 mb-0 fw-normal">Declined</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-container">
+          <div class="main-content">
+            <!--Type from here onwards-->
+            <div class="admin-register">
+              <div class="created-register-container">
+                <div class="register-tabs-container">
+                  <button type="button" class="register-tab" onclick="show(event,'studentRegister')"
+                    id="defaultTab">Student</button>
+                  <button type="button" class="register-tab" onclick="show(event,'parentRegister')">Parent</button>
+                  <button type="button" class="register-tab" onclick="show(event,'facultyRegister')">Faculty</button>
+                  <button type="button" class="register-tab" onclick="show(event,'staffRegister')">Staff</button>
+                </div>
+                <!--This is for the Student register tab-->
+                <div id="studentRegister" class="registerContent">
+                  <div class="student-register-tabs">
+                    <button type="button" class="student-register-tab"
+                      onclick="openTabStudent(event, 'studentApproval')" id="defaultOpen"><span>Student Registration
+                        Approvals</span></button>
+                    <button type="button" class="student-register-tab"
+                      onclick="openTabStudent(event, 'studentApproved')"><span>Student Registration
+                        Approved</span></button>
+                  </div>
+                  <!--This is the start for the student approval tab-->
+                  <d class="studentRegisterContent" id="studentApproval">
+                    <h1>Student Approval</h1>
+                    <div class="student-approval-list" id="student-approval-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in pending_users.students %}
+                          <tr>
+                            <td>Student</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.class_name }}</td>
+                            <td>{{ user.section_linked }}</td>
+                            <td class="actions-block">
+                              <a href="{% url 'approve_user' user.pk 'students' %}">Approve</a>
+                              <hr>
+                              <a href="{% url 'reject_user' user.pk 'students' %}">Reject</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </d iv>
+                  <!--This is the start for the student approved tab-->
+                  <div class="studentRegisterContent" id="studentApproved">
+                    <h1>Student Approved</h1>
+                    <div class="student-approved-list" id="student-approved-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in approved_users.students %}
+                          <tr>
+                            <td>Student</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.class_name }}</td>
+                            <td>{{ user.section_linked }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--This is for the Parent register Tab-->
+                <div id="parentRegister" class="registerContent">
+                  <div class="parent-register-tabs">
+                    <button type="button" class="parent-register-tab" onclick="openTabParent(event, 'parentApproval')"
+                      id="defaultOpenParent"><span>Parent Registration Approvals</span></button>
+                    <button type="button" class="parent-register-tab"
+                      onclick="openTabParent(event, 'parentApproved')"><span>Parent Registration
+                        Approved</span></button>
+                  </div>
+                  <!--This is the start for the parent approval tab-->
+                  <div class="parentRegisterContent" id="parentApproval">
+                    <h1>Parent Approval</h1>
+                    <div class="parent-approval-list" id="parent-approval-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Children</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in pending_users.parents %}
+                          <tr>
+                            <td>Parent</td>
+                            <td>{{ user.parent_name }}</td>
+                            <td>
+                              <ul>
+                                {% for child in user.children.all %}
+                                <li>{{ child.name }} ({{ child.class_name }} - {{ child.section_linked }})</li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                            <td class="actions-block">
+                              <a href="{% url 'approve_user' user.pk 'parents' %}">Approve</a>
+                              <hr>
+                              <a href="{% url 'reject_user' user.pk 'parents' %}">Reject</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!--This is the start for the parent approved tab-->
+                  <div class="parentRegisterContent" id="parentApproved">
+                    <h1>Parent Approved</h1>
+                    <div class="parent-approved-list" id="parent-approved-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Children</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in approved_users.parents %}
+                          <tr>
+                            <td>Parent</td>
+                            <td>{{ user.parent_name }}</td>
+                            <td>
+                              <ul>
+                                {% for child in user.children.all %}
+                                <li>{{ child.name }} ({{ child.class_name }} - {{ child.section_linked }})</li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--This for the Faculty register-->
+                <div id="facultyRegister" class="registerContent">
+                  <div class="faculty-register-tabs">
+                    <button type="button" class="faculty-register-tab"
+                      onclick="openFacultyTab(event, 'facultyApprovals')" id="defaultOpenFaculty"><span>Faculty
+                        Approvals</span></button>
+                    <button type="button" class="faculty-register-tab"
+                      onclick="openFacultyTab(event, 'facultyApproved')"><span>Faculty Approvals</span></button>
+                  </div>
+                  <!--This is for the Staff Approval tab-->
+                  <div class="facultyRegisterContent" id="facultyApprovals">
+                    <h1>Faculty Approvals</h1>
+                    <div class="faculty-approval-list" id="faculty-approval-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Class Assigned</th>
+                            <th>Section Assigned</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in pending_users.faculty %}
+                          <tr>
+                            <td>Faculty</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.class_assigned }}</td>
+                            <td>{{ user.section_assigned }}</td>
+                            <td class="actions-block">
+                              <a href="{% url 'approve_user' user.pk 'faculty' %}">Approve</a>
+                              <hr>
+                              <a href="{% url 'reject_user' user.pk 'faculty' %}">Reject</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!--This is for the Staff Approved tab-->
+                  <div class="facultyRegisterContent" id="facultyApproved">
+                    <h1>Faculty Approved</h1>
+                    <div class="faculty-approved-list" id="faculty-approved-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Class Assigned</th>
+                            <th>Section Assigned</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in approved_users.faculty %}
+                          <tr>
+                            <td>Faculty</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.class_assigned }}</td>
+                            <td>{{ user.section_assigned }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--This is for the Staff Register-->
+                <div id="staffRegister" class="registerContent">
+                  <div class="staff-register-tabs">
+                    <button type="button" class="staff-register-tab" onclick="openStaffTab(event, 'staffApprovals')"
+                      id="defaultOpenStaff"><span>Staff Approvals</span></button>
+                    <button type="button" class="staff-register-tab"
+                      onclick="openStaffTab(event, 'staffApproved')"><span>Staff Approved</span></button>
+                  </div>
+                  <!--This is for the Staff Approval tab-->
+                  <div class="staffRegisterContent" id="staffApprovals">
+                    <h1>Staff Approvals</h1>
+                    <div class="staff-approval-list" id="staff-approval-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in pending_users.staff %}
+                          <tr>
+                            <td>Staff</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td class="actions-block">
+                              <a href="{% url 'approve_user' user.pk 'staff' %}">Approve</a>
+                              <hr>
+                              <a href="{% url 'reject_user' user.pk 'staff' %}">Reject</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!--This is for the Staff Approved tab-->
+                  <div class="staffRegisterContent" id="staffApproved">
+                    <h1>Staff Approved</h1>
+                    <div class="staff-approved-list" id="staff-approved-list">
+                      <!--Insert Jinja Tags-->
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in approved_users.staff %}
+                          <tr>
+                            <td>Staff</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const activeLink = document.querySelector("a.active");
+      if (activeLink) {
+        const linkId = activeLink.id;
+        const linkElement = document.getElementById(linkId);
+        linkElement.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  </script>
+  <!--THis is for the ScrollBar in the NavBar-->
+  <script>
+    const nav = document.querySelector('nav');
+
+    nav.addEventListener('scroll', () => {
+      nav.classList.add('scrolling');
+    });
+
+    nav.addEventListener('mouseleave', () => {
+      nav.classList.remove('scrolling');
+    });
+
+    nav.addEventListener('mouseover', () => {
+      nav.classList.add('scrolling');
+    });
+  </script>
+  <!--This is for switching between the Tabs for Student & Staff-->
+  <script>
+    function show(event, Register) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("registerContent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("register-tab");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(Register).style.display = "block";
+      event.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultTab").click();
+  </script>
+  <!--This is for switching between the Tabs for Student Approval and Student Approved-->
+  <script>
+    function openTabStudent(event, studentRegister) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("studentRegisterContent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("student-register-tab");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(studentRegister).style.display = "block";
+      event.currentTarget.className += " active";
+    }
+
+    /*This is for the staff Approvals Tab*/
+    document.getElementById("defaultOpen").click();
+
+    /*This is for the Parent*/
+    function openTabParent(event, parentRegister) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("parentRegisterContent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("parent-register-tab");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(parentRegister).style.display = "block";
+      event.currentTarget.className += " active";
+    }
+
+    document.getElementById("defaultOpenParent").click();
+
+    /*This is for the Faculty Approvals*/
+    function openFacultyTab(event, facultyRegister) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("facultyRegisterContent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("faculty-register-tab");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(facultyRegister).style.display = "block";
+      event.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpenFaculty").click();
+
+
+    /*This is for the Staff Approvals*/
+    function openStaffTab(event, staffRegister) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("staffRegisterContent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("staff-register-tab");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(staffRegister).style.display = "block";
+      event.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpenStaff").click();
+  </script>
+
+  <script>
+
+
+
+    function showAlert() {
+      Swal.fire({
+        icon: "warning",
+        title: "Are you sure...",
+      });
+    }
+
+  </script>
+
+  {% endblock %}

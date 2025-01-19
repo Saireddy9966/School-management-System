@@ -1,0 +1,283 @@
+/*This is for the addition button*/
+.timetable-button{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 10px;
+    button{
+        display: flex;
+        flex-direction: row;
+        border: 2px solid #6988ff;/*need to change color according to the background color*/
+        color: black;/*need to change color*/
+        padding: 7px 40px 7px 40px;
+        margin-right: 5px;
+        cursor: pointer;
+        border-radius: 25px;
+        transition: ease-in-out 0.3s;
+        justify-content: center;
+        background-color: inherit;
+
+        &:hover{
+            background-color:#6988ff;/*need to change color*/
+            color: whitesmoke;/*need to change color according to the background color*/
+        }
+
+        span{
+            margin-right: 5px;
+        }
+    }
+}
+
+.add-button button span#add-timetable-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-timetable-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+/*This is for the modal pop up*/
+form button {
+    border: 2px solid #6988ff;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 25%;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+button:hover {
+      opacity: 0.8;
+      background-color: #6988ff;
+      color: whitesmoke;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      cursor: pointer;
+      width: 25%;
+      border-radius: 10px;
+      border: 2px solid red;
+      color: black;
+  
+    &:hover{
+      opacity: 0.8;
+      background-color: red;
+      color: whitesmoke;
+    }
+}
+
+/* Center the image and position the close button */
+input, select, textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 10px;
+    resize: none;
+}
+
+.submit-button{
+    text-align: center;
+}
+
+.container {
+    padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: hwb(0 0% 100% / 0.46); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;/* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+}
+
+form{
+      width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background: #f4f4f4;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #333;
+}
+
+.animate {
+      -webkit-animation: animatezoom 0.6s;
+      animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+      from {-webkit-transform: scale(0)} 
+      to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+      from {transform: scale(0)} 
+      to {transform: scale(1)}
+}
+
+/*This is for all the table Involved in the Staff Portals*/
+table 
+{
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+thead{
+    th{
+        background-color: #6988ff;
+        color: whitesmoke;
+    }
+}
+  
+th,td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+}
+  
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+/*This is for the Teacher time table page*/
+
+.non-teacher-time-table{
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}   
+/*This is for the attendance page*/
+.non-teacher-attendance{
+    margin-top: 90px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/*This is for the leaves page*/
+.leaves-container{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    
+    h2{
+        text-align: center;
+    }
+}
+
+/*This is for the salary page*/
+.non-teacher-salary{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    .collapsible {
+        background-color: #E0FCFF;
+        color: #333;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: 1px solid black;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+    
+    .active, .collapsible:hover {
+        background-color: #BDE4F4;
+    }
+
+    .disabled{
+        background-color: grey;
+        color: whitesmoke;
+            &:hover{
+                background-color: grey;
+                color: whitesmoke;
+        }
+    }
+    
+    .class-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+    }
+}
+/*This is for the bus route in the Staff*/
+.bus-route{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    .bus-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid #404969;
+        background-color: #E0FCFF;
+        align-items: center;
+        border-radius: 10px;
+        height: 30px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .exam-tab-button {
+        display: inline-flex;
+      background-color: initial;
+      float: left;
+      border: none;
+      height: 25px;
+      outline: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 17px;
+      width: 50%;
+      border-radius: 7px;
+      margin-top: 1px;
+      margin-left: 2px;
+      margin-right: 2px;
+      margin-bottom: 1px;
+      color: black;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .exam-tab-button:hover {
+        background-color: #BDE4F4;
+    }
+      
+    .exam-tab-button.active{
+          background-color: #006494;
+          color: wheat;
+    }
+}

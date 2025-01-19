@@ -1,0 +1,382 @@
+/*This is for all the Tables in Faculty Panel*/   
+table 
+{
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+thead{
+    th{
+        background-color: #6988ff;
+        color: whitesmoke;
+    }
+}
+  
+th,td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+}
+  
+tr:nth-child(even) {
+    background-color:  rgb(231, 240, 255);
+}
+  
+/*This is for the Teacher classes Page*/
+
+.teacher-classes{
+    margin-left: 10px;
+    margin-right: 10px;
+    
+    .class-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+    }
+}
+
+/*This is for the Teacher time table page*/
+
+.teacher-time-table{
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/*This is for the teachers Marks page*/
+.teacher-marks{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .classes-button, .marks-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color according to the background color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+            background-color: inherit;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color according to the background color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .add-button button span#add-marks-symbol {
+        transition: transform 0.2s ease-in-out; /* add transition effect */
+    }
+    
+    .add-button button:hover span#add-marks-symbol {
+      transform: rotate(45deg); /* rotate 45 degrees on hover */
+    }
+
+    .teacher-marks-container{
+        margin-top: 5px;
+    }
+
+    .teacher-marks-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        background-color: inherit;
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .teacher-marks-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .teacher-marks-tab:hover {
+        background-color: rgb(231, 240, 255);
+        color: #6988ff;
+    }
+      
+    .teacher-marks-tab.active{
+        background-color: #6988ff;
+        color: whitesmoke;
+    }
+
+    .collapsible {
+        margin-top: 5px;
+        background-color: #6988ff;
+        color: whitesmoke;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: 1px solid black;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+    
+    .active, .collapsible:hover {
+        background-color: rgb(231, 240, 255);
+        color: #6988ff;
+    }
+
+    .disabled{
+        background-color: grey;
+        color: whitesmoke;
+            &:hover{
+                background-color: grey;
+                color: whitesmoke;
+        }
+    }
+    
+    .class-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+    
+    }
+}
+
+/*This is for the attendance page*/
+
+.attendance-table{
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    .collapsible {
+        margin-top: 5px;
+        background-color: #6988ff;
+        color: whitesmoke;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: 1px solid black;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+    
+    .active, .collapsible:hover {
+        background-color: #BDE4F4;
+    }
+
+    .disabled{
+        background-color: grey;
+        color: whitesmoke;
+            &:hover{
+                background-color: grey;
+                color: whitesmoke;
+        }
+    }
+    
+    .class-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+    }
+}
+
+/*This is for the leaves page*/
+
+.leaves-container{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    
+    .marks-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color according to the background color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+            background-color: inherit;
+    
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color according to the background color*/
+            }
+    
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+
+    h2{
+        text-align: center;
+    }
+}
+/*This is for the teacher salary page*/
+.teacher-salary{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    .collapsible {
+        background-color: #E0FCFF;
+        color: #333;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: 1px solid black;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+    
+    .active, .collapsible:hover {
+        background-color: #BDE4F4;
+    }
+
+    .disabled{
+        background-color: grey;
+        color: whitesmoke;
+            &:hover{
+                background-color: grey;
+                color: whitesmoke;
+        }
+    }
+    
+    .class-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+    }
+}
+
+/*This is for the Bus info page*/
+
+.bus-route{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .bus-route-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        background-color: inherit;
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+    .bus-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        background-color: inherit;
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+    .bus-tab-button {
+        display: inline-flex;
+        background-color: inherit;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 25%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: whitesmoke;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bus-timing-button, .bus-timing-button-route2, .bus-timing-button-route3, .bus-timing-button-route4 {
+        display: inline-flex;
+        background-color: inherit;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }   
+
+    .bus-tab-button:hover, .bus-timing-button:hover, .bus-timing-button-route2:hover, .bus-timing-button-route3:hover, .bus-timing-button-route4:hover {
+        background-color:  rgb(231, 240, 255);
+        color: #6988ff;
+    }
+      
+    .bus-tab-button.active, .bus-timing-button.active, .bus-timing-button-route2.active, .bus-timing-button-route3.active, .bus-timing-button-route4.active{
+        background-color: #6988ff;
+        color: whitesmoke;
+    }
+
+    iframe{
+        margin-top: 5px;
+    }
+}

@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed"
+    data-header-position="fixed">
+    {% include 'Admin/sidebar.html' %}
+    <!-- Main wrapper -->
+    <div class="body-wrapper">
+        {% include 'includes/navbar.html' %}
+        <div class="container-fluid">
+            <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+                <div class="card-body px-4 py-3">
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <h4 class="fw-semibold mb-8">Admin</h4>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item" aria-current="page">Subjects</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="col-3">
+                            <div class="text-center mb-n5">
+                                <img src="/static/assets/images/ChatBc.png" alt="" class="img-fluid mb-n4" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-container">
+                <div class="main-content">
+                    <!--Type from here onwards-->
+                    <div class="admin-subject">
+                        <div class="subject-button">
+                            <div class="add-button">
+                                <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                                    <span aria-hidden="true" id="add-subject-symbol"><strong>+</strong></span>
+                                    <span>Add Subject</span>
+                                </button>
+                            </div>
+                        </div>
+                        <h1>Added Subjects</h1>
+                        <div class="created-subject-container" id="subject-list">
+                            {% for class_section, subjects_list in subjects_by_class_section.items %}
+                            {% with class_section.0 as class_obj %}
+                            {% with class_section.1 as section_obj %}
+                            <div class="created-subject">
+                                <div class="subject-name-container">
+                                    <div class="class-name">
+                                        <h2>Class {{ class_obj.name }}-{{ section_obj.name }}</h2>
+                                    </div>
+                                    <div class="subject-name"
+                                        id="subject-names-{{ class_obj.id }}-{{ section_obj.id }}">
+                                        {% for subject in subjects_list %}
+                                        <h5>{{ subject.subjectname }}</h5>
+                                        {% if not forloop.last %}
+                                        <hr>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="subject-functions">
+                                    <div class="subject-edit"
+                                        onclick="showEditForm('{{ class_obj.id }}', '{{ section_obj.id }}','{{ class_obj.name }}', '{{ section_obj.name }}')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="whitesmoke" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34">
+                                            </path>
+                                            <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                                        </svg>
+                                    </div>
+                                    <div class="subject-delete"
+                                        onclick="toggleSubjectsToDelete('{{ class_obj.id }}', '{{ section_obj.id }}')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="whitesmoke" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path
+                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                            </path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="subjects-to-delete-{{ class_obj.id }}-{{ section_obj.id }}" class="modal"
+                                style="display: none;">
+                                <form method="post" class="modal-content animate" action="{% url 'delete_subjects' %}">
+                                    {% csrf_token %}
+                                    <span class="close"
+                                        onclick="toggleSubjectsToDelete('{{ class_obj.id }}', '{{ section_obj.id }}')">&times;</span>
+                                    <input type="hidden" name="class_id" value="{{ class_obj.id }}">
+                                    <input type="hidden" name="section_id" value="{{ section_obj.id }}">
+                                    <label id="classSectionLabel">
+                                        <center>
+                                            <h3>Delete Subjects for Class {{ class_obj.name }} - {{ section_obj.name }}
+                                            </h3>
+                                        </center>
+                                    </label>
+                                    {% for subject in subjects_list %}
+                                    <div class="subject-container">
+                                        <input type="checkbox" name="subjects_to_delete[]" value="{{ subject.id }}">
+                                        <label>{{ subject.subjectname }}</label>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="submit-button">
+                                        <button type="button"
+                                            onclick="confirmDeleteSubjects('{{ class_obj.id }}', '{{ section_obj.id }}', '{{ class_obj.name }}', '{{ section_obj.name }}')">Delete
+                                            Selected Subjects</button>
+                                        <button type="button" class="cancelbtn"
+                                            onclick="toggleSubjectsToDelete('{{ class_obj.id }}', '{{ section_obj.id }}')">Close</button>
+                                        <button type="submit" style="display: none;">Confirm Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form for editing subjects (initially hidden) -->
+        <div id="editForm" class="modal" style="display: none;">
+            <form id="editSubjectsForm" class="modal-content animate" method="post"
+                action="{% url 'update_subjects' %}">
+                {% csrf_token %}
+                <span class="close" onclick="hideEditForm()">&times;</span>
+                <input type="hidden" id="classIdInput" name="class_linked">
+                <input type="hidden" id="sectionIdInput" name="section_linked">
+                <label id="classSectionLabel">
+                    <h3>
+                        <center>Update Subjects for Class - Section</center>
+                    </h3>
+                </label>
+                <div id="editModalBody">
+                    <!-- Content will be dynamically populated -->
+                </div>
+                <div class="submit-button">
+                    <button type="submit">Save changes</button>
+                    <button type="button" class="cancelbtn" onclick="hideEditForm()">Close</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            // Function to show edit form and fetch subjects
+            function showEditForm(classId, sectionId, className, sectionName) {
+                var subjectNamesDiv = document.getElementById('subject-names-' + classId + '-' + sectionId);
+                // Set the class and section names in the label
+                document.getElementById('classSectionLabel').textContent = 'Update Subjects for Class ' + className + ' - Section ' + sectionName;
+                var subjectNames = subjectNamesDiv.getElementsByTagName('h5');
+
+                // Clear previous form content
+                var editModalBody = document.getElementById('editModalBody');
+                editModalBody.innerHTML = '';
+
+                // Populate form with inputs for editing
+                for (var i = 0; i < subjectNames.length; i++) {
+                    var input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = 'subjects[]';
+                    input.className = 'form-control mb-2';
+                    input.value = subjectNames[i].textContent.trim();
+                    input.required = true;
+                    editModalBody.appendChild(input);
+                }
+
+                // Set class_id and section_id in hidden inputs
+                document.getElementById('classIdInput').value = classId;
+                document.getElementById('sectionIdInput').value = sectionId;
+
+                // Show the edit form
+                document.getElementById('editForm').style.display = 'block';
+            }
+
+            // Function to hide edit form (optional)
+            function hideEditForm() {
+                document.getElementById('editForm').style.display = 'none';
+            }
+        </script>
+        <script>
+            function toggleSubjectsToDelete(classId, sectionId) {
+                const subjectsDiv = document.getElementById('subjects-to-delete-' + classId + '-' + sectionId);
+                if (!subjectsDiv) {
+                    console.error('Subjects div not found for classId:', classId, 'and sectionId:', sectionId);
+                    return;
+                }
+
+                if (subjectsDiv.style.display === 'none') {
+                    subjectsDiv.style.display = 'block';
+                } else {
+                    subjectsDiv.style.display = 'none';
+                }
+            }
+            function confirmDeleteSubjects(classId, sectionId, className, sectionName) {
+                const subjectNames = [];
+                const checkboxes = document.querySelectorAll(`#subjects-to-delete-${classId}-${sectionId} input[type="checkbox"]:checked`);
+                checkboxes.forEach(checkbox => {
+                    const label = checkbox.nextElementSibling;
+                    if (label) {
+                        subjectNames.push(label.textContent.trim());
+                    }
+                });
+
+                if (subjectNames.length === 0) {
+                    alert('Please select at least one subject to delete.');
+                    return;
+                }
+
+                if (confirm(`Are you sure you want to delete the following subjects of Class ${className} - ${sectionName}?\n${subjectNames.join(', ')}`)) {
+                    // Submit the form programmatically
+                    const form = document.querySelector('#subjects-to-delete-' + classId + '-' + sectionId + ' form');
+                    if (!form) {
+                        console.error('Form not found for classId:', classId, 'and sectionId:', sectionId);
+                        return;
+                    }
+                    form.submit();
+                }
+            }
+        </script>
+        <div id="id01" class="modal" style="display: none;">
+            <form class="modal-content animate" id="subject-form" method="post">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <span class="close" onclick="closeSubjectsForm()">&times;</span>
+                <div class="container">
+                    <label for="select-class">Select Class</label>
+                    <select name="class_linked" id="select-class" required>
+                        <option value="">Select a class</option>
+                        {% for class in classes %}
+                        <option value="{{ class.id }}">{{ class.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="select-section">Section</label>
+                    <select name="section_linked" id="select-section" required>
+                        <option value="" disabled selected>Select Section</option>
+                        {% for section in sections %}
+                        <option value="{{ section.id }}">{{ section.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div id="formset">
+                        {% for form in formset %}
+                        {{ form.as_p }}
+                        {% for error in form.non_field_errors %}
+                        <p style="color: red;">{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="submit-button">
+                        <button type="button" id="add-form">Add Subject</button>
+                        <button type="submit">Create Subjects</button>
+                        <button type="button" onclick="closeSubjectsForm()" class="cancelbtn">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script>
+            function closeSubjectsForm() {
+                const formData = document.getElementById('subject-form');
+                formData.reset();
+
+                document.getElementById('id01').style.display = 'none';
+            }
+        </script>
+        <!--This is for the ScrollBar in the Nav Bar-->
+        <script>
+            const nav = document.querySelector('nav');
+            nav.addEventListener('scroll', () => {
+                nav.classList.add('scrolling');
+            });
+            nav.addEventListener('mouseleave', () => {
+                nav.classList.remove('scrolling');
+            });
+            nav.addEventListener('mouseover', () => {
+                nav.classList.add('scrolling');
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const formset = document.getElementById('formset');
+                const addFormButton = document.getElementById('add-form');
+
+                addFormButton.addEventListener('click', function () {
+                    const totalForms = parseInt(document.getElementById('id_form-TOTAL_FORMS').value);
+                    const newFormHtml = `{{ formset.empty_form.as_p|escapejs }}`;
+                    formset.insertAdjacentHTML('beforeend', newFormHtml.replace(/__prefix__/g, totalForms));
+                    document.getElementById('id_form-TOTAL_FORMS').value = totalForms + 1;
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const classSelect = document.getElementById('select-class');
+                const sectionSelect = document.getElementById('select-section');
+                const sections = JSON.parse('{{ sections_json|escapejs }}');
+
+                classSelect.addEventListener('change', function () {
+                    const selectedClassId = this.value;
+                    sectionSelect.innerHTML = '<option value="">---------</option>';
+                    sections.forEach(function (section) {
+                        if (section.fields.class_linked === parseInt(selectedClassId)) {
+                            const option = document.createElement('option');
+                            option.value = section.pk;
+                            option.text = section.fields.name;
+                            sectionSelect.appendChild(option);
+                        }
+                    });
+                });
+            });
+            document.getElementById('subject-form').addEventListener('submit', function (e) {
+                const subjectInputs = document.querySelectorAll('[name$="subjectname"]');
+                let valid = true;
+
+                subjectInputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        valid = false;
+                        alert('Subject name cannot be empty!');
+                    }
+                });
+
+                if (!valid) e.preventDefault();
+            });
+
+        </script>
+
+    </div>
+</div>
+{% endblock %}

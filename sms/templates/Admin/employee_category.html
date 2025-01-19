@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Employee Categories</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-employee">
+                  <div class="created-employee-container" id="employee-list">
+                      <div class="employee-categories-tabs">
+                          <button type="button" class="employee-categories-tab" onclick="openTab(event, 'teacher')"
+                              id="defaultTab">Faculty</button>
+                          <button type="button" class="employee-categories-tab"
+                              onclick="openTab(event, 'non-teacher')">Staff</button>
+                      </div>
+                      <div id="teacher" class="employee-categories">
+                          <div class="created-teacher-container" id="teacher-list">
+                              {% for faculty in faculties %}
+                              <div class="created-teacher">
+                                  <div class="teacher-name">
+                                      <h2>{{ faculty.name }}</h2>
+                                  </div>
+                              </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                      <div id="non-teacher" class="employee-categories">
+                          <div class="created-non-teacher-container" id="non-teacher-list">
+                              {% for staff in staffs %}
+                              <div class="created-non-teacher">
+                                  <div class="non-teacher-name">
+                                      <h2>{{ staff.name }}</h2>
+                                  </div>
+                              </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>    
+      </div>
+  </div>
+  <script>
+      function closeEmployeeForm(){
+          formData = document.getElementById('employee-form');
+          formData.reset();
+          document.getElementById('id01').style.display='none';
+
+      }
+  </script>
+  <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+  </script>
+  <!---THis is for the ScrollBar in the NavBar-->
+  <script>
+  const nav = document.querySelector('nav');
+
+  nav.addEventListener('scroll', () => {
+      nav.classList.add('scrolling');
+  });
+
+  nav.addEventListener('mouseleave', () => {
+      nav.classList.remove('scrolling');
+  });
+
+  nav.addEventListener('mouseover', () => {
+      nav.classList.add('scrolling');
+  });
+  </script>
+  <!--This Java Script is for switching between the Tabs-->
+  <script>
+      function openTab(event, busTime) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("employee-categories");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("employee-categories-tab");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(busTime).style.display = "block";
+        event.target.className += " active";
+      }
+      
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultTab").click();
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Parent/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Parent</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Ward's Marks</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="classes-top-bar">
+              <h1>Student Portal - Marks</h1>  
+          </div>
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="parent-marks">
+                  <div class="tab">
+                      <div id="Exams" class="tab-content">
+                          <div class="exam-tabs">
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'unit')" id="defaultExamTab"><span>Unit test</span></button>
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'quarterly')" ><span>Quarterly Exams</span></button>
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'half-yearly')" ><span>Half Yearly Exams</span></button>
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'annually')" ><span>Annually Exams</span></button>
+                          </div>
+                          <div id="unit" class="exam-tab-content">
+                              <h1>Unit Tests</h1>
+                              <div class="unit-test-marks">
+                                  {% for exam_type, marks_by_type in marks_data.items %}
+                                  {% if exam_type == 'Unit Test' %}
+                                  {% for unit_test_number, marks_list in marks_by_type.items %}
+                                  <h3>Unit Test {{ unit_test_number }}</h3>
+                                  <table border="1">
+                                      <thead>
+                                          <tr>
+                                              <th>Subject</th>
+                                              <th>Marks</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for marks_record in marks_list %}
+                                          <tr>
+                                              <td>{{ marks_record.subject }}</td>
+                                              <td>{{ marks_record.marks }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  {% endfor %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <div class="summary">
+                                      <h3>Summary</h3>
+                                      <div class="marks-summary">
+                                          <table>
+                                              <tr>
+                                                  <td>A+ = 95 - 100 </td>
+                                                  <td>A = 90 - 95</td>
+                                                  <td>A- = 85 - 90</td>
+                                                  <td>B+ = 80 - 85</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>B = 75 - 80</td>
+                                                  <td>B- = 70 - 75</td>
+                                                  <td>C+ = 65 - 70</td>
+                                                  <td>C = 60 - 65</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>c- = 55 - 60</td>
+                                                  <td>d+ = 50 - 55</td>
+                                                  <td>d = 45 - 50</td>
+                                                  <td>d- = 40 - 45</td>
+                                              </tr>
+                                              <tr>
+                                                  <td colspan="2">E = Just Pass</td>
+                                                  <td colspan="2">F = Fail</td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="quarterly" class="exam-tab-content">
+                              <h1>Quarterly Exams</h1>
+                              <div class="quarterly-marks">
+                                  {% for exam_type, marks_list in marks_data.items %}
+                                  {% if exam_type == "Quarterly" %}
+                                  {% if marks_list %}
+                                  <table border="1">
+                                      <thead>
+                                          <tr>
+                                              <th>Subject</th>
+                                              <th>Marks</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for marks_record in marks_list.Other %}
+                                          <tr>
+                                              <td>{{ marks_record.subject }}</td>
+                                              <td>{{ marks_record.marks }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  {% endif %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <div class="summary">
+                                      <h3>Summary</h3>
+                                      <div class="marks-summary">
+                                          <table>
+                                              <tr>
+                                                  <td>A+ = 95 - 100 </td>
+                                                  <td>A = 90 - 95</td>
+                                                  <td>A- = 85 - 90</td>
+                                                  <td>B+ = 80 - 85</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>B = 75 - 80</td>
+                                                  <td>B- = 70 - 75</td>
+                                                  <td>C+ = 65 - 70</td>
+                                                  <td>C = 60 - 65</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>c- = 55 - 60</td>
+                                                  <td>d+ = 50 - 55</td>
+                                                  <td>d = 45 - 50</td>
+                                                  <td>d- = 40 - 45</td>
+                                              </tr>
+                                              <tr>
+                                                  <td colspan="2">E = Just Pass</td>
+                                                  <td colspan="2">F = Fail</td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="half-yearly" class="exam-tab-content">
+                              <h1>Half-Yearly Exams</h1>
+                              <div class="half-yearly-marks">
+                                  {% for exam_type, marks_list in marks_data.items %}
+                                  {% if exam_type == "Half Yearly" %}
+                                  {% if marks_list %}
+                                  <table border="1">
+                                      <thead>
+                                          <tr>
+                                              <th>Subject</th>
+                                              <th>Marks</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for marks_record in marks_list.Other %}
+                                          <tr>
+                                              <td>{{ marks_record.subject }}</td>
+                                              <td>{{ marks_record.marks }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  {% endif %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <div class="summary">
+                                      <h3>Summary</h3>
+                                      <div class="marks-summary">
+                                          <table>
+                                              <tr>
+                                                  <td>A+ = 95 - 100 </td>
+                                                  <td>A = 90 - 95</td>
+                                                  <td>A- = 85 - 90</td>
+                                                  <td>B+ = 80 - 85</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>B = 75 - 80</td>
+                                                  <td>B- = 70 - 75</td>
+                                                  <td>C+ = 65 - 70</td>
+                                                  <td>C = 60 - 65</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>c- = 55 - 60</td>
+                                                  <td>d+ = 50 - 55</td>
+                                                  <td>d = 45 - 50</td>
+                                                  <td>d- = 40 - 45</td>
+                                              </tr>
+                                              <tr>
+                                                  <td colspan="2">E = Just Pass</td>
+                                                  <td colspan="2">F = Fail</td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="annually" class="exam-tab-content">
+                              <h1>Annually Exams</h1>
+                              <div class="annually-marks">
+                                  {% for exam_type, marks_list in marks_data.items %}
+                                  {% if exam_type == "Annual" %}
+                                  {% if marks_list %}
+                                  <table border="1">
+                                      <thead>
+                                          <tr>
+                                              <th>Subject</th>
+                                              <th>Marks</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for marks_record in marks_list.Other %}
+                                          <tr>
+                                              <td>{{ marks_record.subject }}</td>
+                                              <td>{{ marks_record.marks }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  {% endif %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <div class="summary">
+                                      <h3>Summary</h3>
+                                      <div class="marks-summary">
+                                          <table>
+                                              <tr>
+                                                  <td>A+ = 95 - 100 </td>
+                                                  <td>A = 90 - 95</td>
+                                                  <td>A- = 85 - 90</td>
+                                                  <td>B+ = 80 - 85</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>B = 75 - 80</td>
+                                                  <td>B- = 70 - 75</td>
+                                                  <td>C+ = 65 - 70</td>
+                                                  <td>C = 60 - 65</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>c- = 55 - 60</td>
+                                                  <td>d+ = 50 - 55</td>
+                                                  <td>d = 45 - 50</td>
+                                                  <td>d- = 40 - 45</td>
+                                              </tr>
+                                              <tr>
+                                                  <td colspan="2">E = Just Pass</td>
+                                                  <td colspan="2">F = Fail</td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--This is for the scrollbar in nav-->
+  <script>
+  const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+  
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+  
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+  </script>
+  <!--Java Script For controlling the tabs-->
+  <script>
+      /*This is for Marks Tab*/
+      function show(event, tabname) {
+          var i, tabcontent, tabbutton;
+          // Hide the tab content
+          tabcontent = document.getElementsByClassName("exam-tab-content");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          // Remove the active class from all tab buttons
+          tabbutton = document.getElementsByClassName("exam-tab-button");
+          for (i = 0; i < tabbutton.length; i++) {
+            tabbutton[i].className = tabbutton[i].className.replace(" active", "");
+          }
+          // Set the selected tab to active and display the content
+          document.getElementById(tabname).style.display = "block";
+          event.currentTarget.classList.add("active");
+      }
+
+  document.getElementById('defaultExamTab').click();
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

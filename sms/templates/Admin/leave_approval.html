@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Leaves Approvals</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-leaves">
+                  <div class="button-container">
+                      <div class="assign-teacher-leaves-button">
+                          <div class="add-button">
+                              <button type="button" onclick="document.getElementById('id02').style.display = 'block'">
+                                  <span aria-hidden="true" id="add-employee-symbol"><strong>+</strong></span>
+                                  <span>Assign Faculty Leaves</span>
+                              </button>
+                          </div>
+                      </div>
+                      <div class="assign-non-teacher-leaves-button">
+                          <div class="add-button">
+                              <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                                  <span aria-hidden="true" id="add-employee-symbol"><strong>+</strong></span>
+                                  <span>Assign Staff Leaves</span>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="created-leaves-container" id="leaves-list">
+                      <div class="leaves-tabs-container">
+                          <button type="button" class="leaves-tab" onclick="show(event,'pendingLeaves')"
+                              id="defaultTab"><span>Pending Leaves</span></button>
+                          <button type="button" class="leaves-tab" onclick="show(event,'approvedLeaves')"><span>Approved
+                            Leaves</span></button>
+                          <button type="button" class="leaves-tab" onclick="show(event,'declinedLeaves')"><span>Declined
+                            Leaves</span></button>
+                          <button type="button" class="leaves-tab" onclick="show(event,'facultyLeaves')"><span>Faculty
+                            Leaves</span></button>
+                          <button type="button" class="leaves-tab" onclick="show(event,'staffLeaves')"><span>Staff
+                            Leaves</span></button>
+                      </div>
+                      <div id="pendingLeaves" class="leavesContent">
+                          <h1>Pending Leaves</h1>
+                          <div class="pending-leaves-list">
+                              <table>
+                                {% for request in pending_requests %}
+                                  <thead>
+                                      <tr>
+                                          <th>User</th>
+                                          <th>User Type</th>
+                                          <th>Start Date</th>
+                                          <th>End Date</th>
+                                          <th>LeaveType</th>
+                                          <th>Reason</th>
+                                          <th>Date</th>
+                                          <th>Status</th>
+                                          <th>Actions</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>{{ request.get_user_type.1 }}</td>
+                                          <td>{{ request.get_user_type.0 }}</td>
+                                          <td>{{ request.start_date }}</td>
+                                          <td>{{ request.end_date }}</td>
+                                          <td>{{ request.leave_type }}</td>
+                                          <td>{{ request.reason }}</td>
+                                          <td>{{ request.created_at }}</td>
+                                          <td>{{ request.status }}</td>
+                                          <td>
+                                              <a
+                                                  href="{% url 'update_leave_approval' request.pk 'Approved' %}">Approve</a>
+                                              <a
+                                                  href="{% url 'update_leave_approval' request.pk 'Declined' %}">Decline</a>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                                  {% endfor %}
+                              </table>
+                          </div>
+                      </div>
+              <div id="approvedLeaves" class="leavesContent">
+                  <h1>Approved Leaves</h1>
+                  <div class="approved-leave-list">
+                      <table>
+                        {% for request in approved_requests %}
+                          <thead>
+                              <tr>
+                                  <th>User</th>
+                                  <th>User Type</th>
+                                  <th>Start Date</th>
+                                  <th>End Date</th>
+                                  <th>LeaveType</th>
+                                  <th>Reason</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>{{ request.get_user_type.1 }}</td>
+                                  <td>{{ request.get_user_type.0 }}</td>
+                                  <td>{{ request.start_date }}</td>
+                                  <td>{{ request.end_date }}</td>
+                                  <td>{{ request.leave_type }}</td>
+                                  <td>{{ request.reason }}</td>
+                                  <td>{{ request.created_at }}</td>
+                                  <td>{{ request.status }}</td>
+                              </tr>
+                          </tbody>
+                          {% endfor %}
+                      </table>
+                  </div>
+              </div>
+              <div id="declinedLeaves" class="leavesContent">
+                  <h1>Declined Leaves</h1>
+                  <div class="declined-leave-list">
+                      <table>
+                        {% for request in declined_requests %}
+                          <thead>
+                              <tr>
+                                  <th>User</th>
+                                  <th>User Type</th>
+                                  <th>Start Date</th>
+                                  <th>End Date</th>
+                                  <th>LeaveType</th>
+                                  <th>Reason</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>{{ request.get_user_type.1 }}</td>
+                                  <td>{{ request.get_user_type.0 }}</td>
+                                  <td>{{ request.start_date }}</td>
+                                  <td>{{ request.end_date }}</td>
+                                  <td>{{ request.leave_type }}</td>
+                                  <td>{{ request.reason }}</td>
+                                  <td>{{ request.created_at }}</td>
+                                  <td>{{ request.status }}</td>
+                              </tr>
+                          </tbody>
+                          {% endfor %}
+                      </table>
+                  </div>
+              </div>
+              <div id="staffLeaves" class="leavesContent">
+                  <h1>Staff Leaves</h1>
+                  <div class="staff-leaves-list">
+                      <table>
+                        {% for staffs in staff %}
+                          <thead>
+                              <tr>
+                                  <th>Month</th>
+                                  <th>Number of Leaves</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>{{ staffs.month }}</td>
+                                  <td>{{ staffs.staff_leaves }}</td>
+                              </tr>
+                          </tbody>
+                          {% endfor %}
+                      </table>
+                  </div>
+              </div>
+              <div id="facultyLeaves" class="leavesContent">
+                  <h1>Faculty Leaves</h1>
+                  <div class="faculty-leaves-list">
+                      <table>
+                        {% for faculties in faculty %}
+                          <thead>
+                              <tr>
+                                  <th>Month</th>
+                                  <th>Number of Leaves</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>{{ faculties.month }}</td>
+                                  <td>{{ faculties.faculty_leaves }}</td>
+                              </tr>
+                          </tbody>
+                          {% endfor %}
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div id="id01" class="modal" style="display: none;">
+              <form method="post" id="non-teacher-leaves-form" class="modal-content animate" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <span class="close" onclick="closeEmployeeForm()">&times;</span>
+                  {% if staff_error %}
+                      <div class="error">{{ staff_error }}</div>
+                  {% endif %}
+                  {{ staff_form.as_p }}
+                  <div class="submit-button">
+                      <button type="submit" name="staff_submit">Create Staff Leaves</button>
+                      <button type="button" onclick="closeEmployeeForm()"
+                          class="cancelbtn">Cancel</button>
+                  </div>
+              </form>
+          </div>
+          <div id="id02" class="modal" style="display: none;">
+              <form method="post" id="teacher-leaves-form" class="modal-content animate" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <span class="close" onclick="closeEmployeeForm()">&times;</span>
+                  {% if faculty_error %}
+                      <div class="error">{{ faculty_error }}</div>
+                  {% endif %}
+                  {{ faculty_form.as_p }}
+                  <div class="submit-button">
+                      <button type="submit" name="faculty_submit">Create Faculty Leaves</button>
+                      <button type="button" onclick="closeEmployeeForm()"
+                          class="cancelbtn">Cancel</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  </div>
+  <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+      function closeEmployeeForm(){
+          teacherFormData = document.getElementById('teacher-leaves-form');
+          nonTeacherFormData = document.getElementById('non-teacher-leaves-form');
+          teacherFormData.reset();
+          nonTeacherFormData.reset();
+          document.getElementById('id01').style.display='none';
+          document.getElementById('id02').style.display='none';
+      }
+  </script>
+  <!--THis is for the ScrollBar in the NavBar-->
+  <script>
+  const nav = document.querySelector('nav');
+  nav.addEventListener('scroll', () => {
+      nav.classList.add('scrolling');
+  });
+  nav.addEventListener('mouseleave', () => {
+      nav.classList.remove('scrolling');
+  });
+  nav.addEventListener('mouseover', () => {
+      nav.classList.add('scrolling');
+  });
+  </script>
+  <script>
+      function show(event, leaveType) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("leavesContent");
+          for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("leaves-tab");
+          for (i = 0; i < tablinks.length; i++) {
+              tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(leaveType).style.display = "block";
+          event.currentTarget.className += " active";
+      }
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultTab").click();
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

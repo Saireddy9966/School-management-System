@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Fee</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-timetable">
+                  <div class="timetable-button">
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                              <span aria-hidden="true" id="add-timetable-symbol"><strong>+</strong></span>
+                              <span>Create Bus Fees</span>
+                          </button>
+                          <button type="button" onclick="document.getElementById('id02').style.display = 'block'">
+                              <span aria-hidden="true" id="add-timetable-symbol"><strong>+</strong></span>
+                              <span>Create Tuition Fees</span>
+                          </button>
+                          <button type="button" onclick="document.getElementById('id03').style.display = 'block'">
+                              <span aria-hidden="true" id="add-timetable-symbol"><strong>+</strong></span>
+                              <span>Create Mess Fess</span>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="created-timetable-container">
+                      <div class="timetable-tabs-container">
+                          <button type="button" class="timetable-tabs" onclick="show(event, 'bus')"
+                              id="defaultTab">Bus Fees</button>
+                          <button type="button" class="timetable-tabs" onclick="show(event, 'tuition')">Tuition Fees</button>
+                          <button type="button" class="timetable-tabs" onclick="show(event, 'mess')">Mess fees</button>
+                      </div>
+                      <div class="timetable-content" id="bus">
+                          <h1>Bus Fees</h1>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Location</th>
+                                      <th>Amount</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for bus_fees in bus %}
+                                  <tr>
+                                      <td>{{ bus_fees.location }}</td>
+                                      <td>{{ bus_fees.amount }}</td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                      <div class="timetable-content" id="tuition">
+                          <h1>Tuition Fees</h1>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Class</th>
+                                      <th>Amount</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for tuition_fees in tuition %}
+                                  <tr>
+                                      <td>{{ tuition_fees.class_linked }}</td>
+                                      <td>{{ tuition_fees.amount }}</td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                      <div class="timetable-content" id="mess">
+                          <h1>Mess Fees</h1>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Amount</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for mess_fees in mess %}
+                                  <tr>
+                                      <td>{{ mess_fees.amount }}</td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--This brings up the Student TimeTable form-->
+  <div id="id01" class="modal" style="display: none;">
+      <form method="post" id="bus-payment-form" class="modal-content animate" enctype="multipart/form-data">
+          {% csrf_token %}
+          <span class="close" onclick="closePaymentForm()">&times;</span>
+          {% if bus_error %}
+              <div class="error">{{ bus_error }}</div>
+          {% endif %}
+          {{ bus_form.as_p }}
+          <div class="submit-button">
+              <button type="submit" name="bus_submit">Create Bus Fees</button>
+              <button type="button" onclick="closePaymentForm()"
+                  class="cancelbtn">Cancel</button>
+          </div>
+      </form>
+  </div>
+  <script>
+      function closePaymentForm(){
+          busFormData = document.getElementById('bus-payment-form');
+          tuitionFormData = document.getElementById('tuition-payment-form');
+          massFormData = document.getElementById('mess-payment-form');
+          busFormData.reset();
+          tuitionFormData.reset();
+          massFormData.reset();
+          document.getElementById('id01').style.display='none';
+          document.getElementById('id02').style.display='none';
+          document.getElementById('id03').style.display='none';
+
+      }
+  </script>
+  <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+  </script>
+  <!--This is for the ScrollBar in the NavBar-->
+  <script>
+  const nav = document.querySelector('nav');
+
+  nav.addEventListener('scroll', () => {
+      nav.classList.add('scrolling');
+  });
+
+  nav.addEventListener('mouseleave', () => {
+      nav.classList.remove('scrolling');
+  });
+
+  nav.addEventListener('mouseover', () => {
+      nav.classList.add('scrolling');
+  });
+  </script>
+  <!--This brings up the Staff Time Table Form-->
+  <div id="id02" class="modal" style="display: none;">
+      <form method="post" id="tuition-payment-form" class="modal-content animate" enctype="multipart/form-data">
+          {% csrf_token %}
+          <span class="close" onclick="closePaymentForm()">&times;</span>
+          {% if tuition_error %}
+              <div class="error">{{ tuition_error }}</div>
+          {% endif %}
+          {{ tuition_form.as_p }}
+          <div class="submit-button">
+              <button type="submit" name="tuition_submit">Create Tuition Fees</button>
+              <button type="button" onclick="closePaymentForm()"
+                  class="cancelbtn">Cancel</button>
+          </div>
+      </form>
+  </div>
+  <div id="id03" class="modal" style="display: none;">
+      <form method="post" id="mess-payment-form" class="modal-content animate" enctype="multipart/form-data">
+          {% csrf_token %}
+          <span class="close" onclick="closePaymentForm()">&times;</span>
+          {% if mess_error %}
+              <div class="error">{{ mess_error }}</div>
+          {% endif %}
+          {{ mess_form.as_p }}
+          <div class="submit-button">
+              <button type="submit" name="mess_submit">Create Mess Fees</button>
+              <button type="button" onclick="closePaymentForm()"
+                  class="cancelbtn">Cancel</button>
+          </div>
+      </form>
+  </div>
+  <script>
+      function show(event, timeTableType) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("timetable-content");
+          for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("timetable-tabs");
+          for (i = 0; i < tablinks.length; i++) {
+              tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(timeTableType).style.display = "block";
+          event.currentTarget.className += " active";
+      }
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultTab").click();
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

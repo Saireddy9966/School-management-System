@@ -1,0 +1,180 @@
+  {% extends 'base.html' %} {% block content %} {% load static %}
+
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Parent/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-lg-12 d-flex align-items-stretch">
+        <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+          <div class="card-body position-relative">
+            <div class="row">
+              <div class="col-sm-7">
+                <div class="d-flex align-items-center mb-7">
+                  <div class="rounded-circle overflow-hidden me-6">
+                    <img
+                      src="{% static 'assets/images/user-1.jpg' %}"
+                      alt=""
+                      width="50"
+                      height="50"
+                    />
+                  </div>
+                  <h2 class="fw-semibold mb-0">
+                    Welcome {{ parent.parent_name }}</a></h2>
+                </div>
+                <!-- <div class="d-flex align-items-center">
+                  <div class="border-end pe-4 border-muted border-opacity-10">
+                    <h3
+                      class="mb-1 fw-semibold fs-8 d-flex align-content-center"
+                    >
+                      0<i
+                        class="bi bi-arrow-up-right fs-5 lh-base text-success"
+                      ></i>
+                    </h3>
+                    <p class="mb-0 text-dark">Assignments Due</p>
+                  </div>
+                  <div class="ps-4">
+                    <h3
+                      class="mb-1 fw-semibold fs-8 d-flex align-content-center"
+                    >
+                      35%<i
+                        class="bi bi-arrow-up-right fs-5 lh-base text-success"
+                      ></i>
+                    </h3>
+                    <p class="mb-0 text-dark">Overall Performance</p>
+                  </div>
+                </div> -->
+              </div>
+              <div class="col-sm-5">
+                <div class="welcome-bg-img mb-n7 text-end">
+                  <img
+                    src="{% static 'assets/images/welcome-bg.svg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold">Ward's Attendance Status</h5>
+              <!-- <p class="card-subtitle mb-2">Monthly Report</p> -->
+              <div id="chart-pie-monochrome" class="mb-4"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-5 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold text-dark text-center">Ward's Upcoming Score</h5>
+              <!-- <p class="card-subtitle mb-7">Platform for Self-Testing</p> -->
+              <div class="position-relative mt-4">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <div class="d-flex">
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold text-muted">Subject Name</h6>
+                      <!-- <p class="fs-3 mb-0">Course Name</p> -->
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">50</h6>
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <div class="d-flex">
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold text-muted">Subject Name</h6>
+                      <!-- <p class="fs-3 mb-0">Course Name</p> -->
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">50</h6>
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <div class="d-flex">
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold text-muted">Subject Name</h6>
+                      <!-- <p class="fs-3 mb-0">Course Name</p> -->
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">50</h6>
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-between mb-7 pb-1"
+                >
+                  <div class="d-flex">
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold text-muted">Subject Name</h6>
+                      <!-- <p class="fs-3 mb-0">Course Name</p> -->
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">50</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+            <div class="right-container">
+                <div class="main-content">
+                    <div class="parent-subjects">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S.no</th>
+                                    <th>Subjects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subject in subjects %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ subject.subjectname }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <script>
+        const nav = document.querySelector('nav');
+    
+            nav.addEventListener('scroll', () => {
+                nav.classList.add('scrolling');
+            });
+        
+            nav.addEventListener('mouseleave', () => {
+                nav.classList.remove('scrolling');
+            });
+        
+            nav.addEventListener('mouseover', () => {
+                nav.classList.add('scrolling');
+            });
+        </script>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- container-fluid over -->
+  </div>
+</div>
+{% endblock %}

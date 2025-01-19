@@ -1,0 +1,288 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Student/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="col-lg-12 d-flex align-items-stretch">
+        <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+          <div class="card-body position-relative">
+            <div class="row">
+              <div class="col-sm-7">
+                <div class="d-flex align-items-center mb-7">
+                  <div class="rounded-circle overflow-hidden me-6">
+                    <img
+                      src="{% static 'assets/images/user-1.jpg' %}"
+                      alt=""
+                      width="50"
+                      height="50"
+                    />
+                  </div>
+                  <h2 class="fw-semibold mb-0">
+                    Welcome {{ student.name }}</a></h2>
+                </div>
+                <!-- <div class="d-flex align-items-center">
+                  <div class="border-end pe-4 border-muted border-opacity-10">
+                    <h3
+                      class="mb-1 fw-semibold fs-8 d-flex align-content-center"
+                    >
+                      0<i
+                        class="bi bi-arrow-up-right fs-5 lh-base text-success"
+                      ></i>
+                    </h3>
+                    <p class="mb-0 text-dark">Assignments Due</p>
+                  </div>
+                  <div class="ps-4">
+                    <h3
+                      class="mb-1 fw-semibold fs-8 d-flex align-content-center"
+                    >
+                      35%<i
+                        class="bi bi-arrow-up-right fs-5 lh-base text-success"
+                      ></i>
+                    </h3>
+                    <p class="mb-0 text-dark">Overall Performance</p>
+                  </div>
+                </div> -->
+              </div>
+              <div class="col-sm-5">
+                <div class="welcome-bg-img mb-n7 text-end">
+                  <img
+                    src="{% static 'assets/images/welcome-bg.svg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xl-4">
+          <div class="card bg-primary-subtle shadow-none">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center">
+                <div class="round rounded text-bg-primary d-flex align-items-center justify-content-center">
+                  <i class="bi bi-people-fill text-white fs-7" title="BTC"></i>
+                </div>
+                <h4 class="mb-0 ms-3">Students</h4>
+                <!-- <div class="ms-auto text-primary d-flex align-items-center">
+                  <i class="bi bi-people-fill text-primary fs-6 me-1"></i>
+                  <span class="fs-2 fw-bold">+ 2.30%</span>
+                </div> -->
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <span class="fw-bold">{{ student_count }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+          <div class="card bg-danger-subtle shadow-none">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center">
+                <div class="round rounded text-bg-danger d-flex align-items-center justify-content-center">
+                  <i class="bi bi-person-lines-fill text-white fs-7" title="ETH"></i>
+                </div>
+                <h4 class="mb-0 ms-3">Faculty</h4>
+                <!-- <div class="ms-auto text-danger d-flex align-items-center">
+                  <i class="ti ti-trending-up text-danger fs-6 me-1"></i>
+                  <span class="fs-2 fw-bold">+ 3.20%</span>
+                </div> -->
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <!-- <h3 class="mb-0 fw-semibold fs-7">0.5620</h3> -->
+                <span class="fw-bold">20</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-sm-6 col-xl-3">
+          <div class="card bg-success-subtle shadow-none">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center">
+                <div class="round rounded text-bg-success d-flex align-items-center justify-content-center">
+                  <i class="bi bi-person-vcard-fill text-white fs-7" title="LTC"></i>
+                </div>
+                <h4 class="mb-0 ms-3">Staff</h4>
+
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+
+                <span class="fw-bold">16</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-sm-6 col-xl-4">
+          <div class="card bg-warning-subtle shadow-none">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center">
+                <div class="round rounded text-bg-warning d-flex align-items-center justify-content-center">
+                  <i class="bi bi-pencil-square text-white fs-7" title=""></i>
+                </div>
+                <h4 class="mb-0 ms-3">Feedbacks</h4>
+                <!-- <div class="ms-auto text-info d-flex align-items-center">
+                  <i class="ti ti-trending-down text-success fs-6 me-1"></i>
+                  <span class="fs-2 fw-bold text-success">+ 3.20%</span>
+                </div> -->
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4">
+                <!-- <h3 class="mb-0 fw-semibold fs-7">1.200</h3> -->
+                <span class="fw-bold">13</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold">Subject Status</h5>
+              <!-- <p class="card-subtitle mb-2">Monthly Report</p> -->
+              <div id="chart-pie-simple" class="mb-4"></div>
+              <!-- <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="bg-light-primary rounded-2 me-8 p-8 d-flex align-items-center justify-content-center"
+                  >
+                    <i class="bi bi-grid-3x3-gap-fill text-primary fs-6"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-semibold text-dark fs-4 mb-0">50%</h6>
+                    <p class="fs-3 mb-0 fw-normal">Completed</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div
+                    class="bg-light-secondary rounded-2 me-8 p-8 d-flex align-items-center justify-content-center"
+                  >
+                    <i class="bi bi-grid-3x3-gap-fill text-secondary fs-6"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-semibold text-dark fs-4 mb-0">50%</h6>
+                    <p class="fs-3 mb-0 fw-normal">Remaining</p>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+          <div class="card w-100">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold text-dark text-center">Upcoming Tests</h5>
+
+              <div class="position-relative mt-4">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <div class="d-flex">
+
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold">Subject Name</h6>
+                      <p class="fs-3 mb-0">Course Name</p>
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">10:00 AM</h6>
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <div class="d-flex">
+
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold">Subject Name</h6>
+                      <p class="fs-3 mb-0">Course Name</p>
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">10:00 AM</h6>
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <div class="d-flex">
+
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold">Subject Name</h6>
+                      <p class="fs-3 mb-0">Course Name</p>
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">10:00 AM</h6>
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-between mb-7 pb-1"
+                >
+                  <div class="d-flex">
+
+                    <div>
+                      <h6 class="mb-1 fs-4 fw-semibold">Subject Name</h6>
+                      <p class="fs-3 mb-0">Course Name</p>
+                    </div>
+                  </div>
+                  <h6 class="mb-0 fw-semibold text-muted">10:00 AM</h6>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+            <div class="right-container">
+                <div class="main-content">
+                    <div class="student-subjects">
+                        <h1>Subjects for {{ student.class_name }} - {{ student.section_linked }}</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S.no</th>
+                                    <th>Subjects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subject in subjects %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ subject.subjectname }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--This is for the ScrollBar in the NavBar-->
+        <script>
+            const nav = document.querySelector('nav');
+        
+            nav.addEventListener('scroll', () => {
+                nav.classList.add('scrolling');
+            });
+        
+            nav.addEventListener('mouseleave', () => {
+                nav.classList.remove('scrolling');
+            });
+        
+            nav.addEventListener('mouseover', () => {
+                nav.classList.add('scrolling');
+            });
+        </script>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- container-fluid over -->
+  </div>
+</div>
+
+{% endblock %}

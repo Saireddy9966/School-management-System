@@ -1,0 +1,220 @@
+/*This is for all the tables used in Student Panel*/
+table 
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+  
+th,td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+}
+  
+th {
+    background-color: #6988ff;
+    color: whitesmoke;
+    font-weight: bold;
+}
+  
+tr:nth-child(even) {
+    background-color:  rgb(231, 240, 255);
+}
+
+/*This for the student classes page*/
+.student-classes{
+    margin-left: 10px;
+    margin-right: 10px;
+
+    .collapsible {
+        background-color: inherit;
+        color: #333;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: 1px solid black;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+    
+    .class-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+    }
+}
+
+
+
+/*This is for the student subjects*/
+.student-subjects{
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .img-avatar{
+        width: 100%;
+        text-align: center;
+    }
+
+    .subjects{
+        width: 100%;
+    }
+}
+
+/*This is for the student time-table*/
+
+.time-table{
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/*This is for the student tabs*/
+.student-exams{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    h2{
+        text-align: center;
+    }
+
+    .exam-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;/*need to change*/
+        background-color: inherit;/*need to change*/
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .exam-tab-button {
+        display: inline-flex;
+      background-color: initial;
+      float: left;
+      border: none;
+      height: 25px;
+      outline: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 17px;
+      width: 25%;
+      border-radius: 7px;
+      margin-top: 1px;
+      margin-left: 2px;
+      margin-right: 2px;
+      margin-bottom: 1px;
+      color: black;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .exam-tab-button:hover {
+        background-color:  rgb(231, 240, 255);/*need to change*/
+        color: #6988ff;
+    }
+      
+    .exam-tab-button.active{
+        background-color: #6988ff;/*need to change*/
+        color: whitesmoke;/*need to change*/
+    }
+
+    .unit-test-time-table, .quarterly-time-table, .half-yearly-time-table, .annually-time-table{
+        h3{
+            text-align: center;
+        }
+    }
+    
+}
+
+/*This is for student marks tab*/
+
+.student-marks{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    h2{
+        text-align: center;
+    }
+
+    .exam-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;/*need to change*/
+        background-color: inherit;/*need to change*/
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .exam-tab-button {
+        display: inline-flex;
+      background-color: initial;
+      float: left;
+      border: none;
+      height: 25px;
+      outline: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 17px;
+      width: 25%;
+      border-radius: 7px;
+      margin-top: 1px;
+      margin-left: 2px;
+      margin-right: 2px;
+      margin-bottom: 1px;
+      color: black;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .exam-tab-button:hover {
+        background-color: rgb(231, 240, 255);/*need to change*/
+        color: #6988ff;
+    }
+      
+    .exam-tab-button.active{
+          background-color: #6988ff;/*need to change*/
+          color: whitesmoke;
+    }
+
+    .unit-test-marks, .quarterly-marks, .half-yearly-marks, .annually-marks {
+        h3{
+            text-align: center;
+        }
+    }
+}
+
+/*This is for Attendance Tab*/
+
+.attendance-table{
+    margin-top: 90px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 480px){
+    button{
+        font-size: 8px;
+        font-stretch: condensed;
+    }
+}

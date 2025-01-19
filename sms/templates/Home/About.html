@@ -1,0 +1,152 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta name="description" content="School_Home">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{% static 'sms/css/Home.css' %}">
+    <link rel="apple-touch-icon" href="{% static 'sms/img/school-logo (2).png' %}">
+    <link rel="shortcut icon" href="{% static 'sms/img/school-logo (2).png' %}" type="image/x-icon">
+</head>
+
+<body>
+    <div class="bg_img_placeholder">
+        <header>
+            <div class="nav_bar_placeholder">
+                <div class="img_placeholder">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'sms/img/school-logo (2).png' %}" alt="School_Logo">
+                    </a>
+                </div>
+
+                <!-- Burger Menu Icon -->
+                <div class="burger-menu">
+                    ☰
+                </div>
+
+                <!-- Navbar Content (will be hidden on mobile) -->
+                <div class="navbar_placeholder">
+                    <div class="navbar">
+                        <nav>
+                            <ul class="nav_links">
+                                <li class="nav_link" id="home-link"><a href="{% url 'home' %}"><span>Home</span></a>
+                                </li>
+                                <li class="nav_link" id="about-link"><a href="{% url 'about' %}"><span>About</span></a>
+                                </li>
+                                <li class="nav_link" id="contact-link"><a
+                                        href="{% url 'contact' %}"><span>Contact</span></a>
+                                </li>
+                                <li class="nav_link" id="admission-link"><a href="{% url 'admission' %}"><span>New
+                                            Admission</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- <div class="button_placeholder">
+                        <div class="login_btn_placeholder">
+                            <button type="button" class="login_btn"><span>Login</span></button>
+                        </div>
+                        <div class="register_btn_placeholder">
+                            <button type="button" class="register_btn"><span>Register</span></button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </header>
+        <div class="main_header_placeholder">
+            <div class="main_header">
+                <h1 class="main_title"><span>About Us</span></h1>
+                <h1 class="main_title"><span>School Name</span></h1>
+            </div>
+            <!-- <div class="sub_header">
+                <p class="sub_title"><span>Discover a place where young minds flourish through </span></p>
+                <p class="sub_title"><span>innovative education and community</span></p>
+                <p class="sub_title"><span>engagement at our nurturing,</span></p>
+                <p class="sub_title"><span> forward-thinking school</span></p>
+            </div>
+            <div class="explore_btn_placeholder">
+                <a href="#"><button type="button" class="explore_btn"><span>Explore Now</span></button></a>
+            </div> -->
+        </div>
+    </div>
+    <div class="main_container">
+        <div class="container white">
+            <div class="mission_section">
+                <div class="section_header">
+                    <h1>Our Mission</h1>
+                </div>
+                <div class="section_content">
+                    <p class="section_text">Our mission at [School Name] is to provide an enriching educational
+                        experience that empowers
+                        every student to reach their full potential. We are dedicated to fostering a supportive and
+                        inclusive environment where students are inspired to pursue academic excellence, cultivate
+                        creativity, and develop critical life skills.
+
+                        Through a balanced approach to academics, arts, and athletics, we strive to nurture well-rounded
+                        individuals who are prepared to thrive in a diverse and changing world. We are committed to
+                        instilling values of integrity, respect, and compassion, encouraging our students to make a
+                        positive impact on their communities and beyond.
+
+                        At [School Name], we believe in the power of education to shape futures, inspire dreams, and
+                        create a brighter tomorrow for all.</p>
+                </div>
+            </div>
+        </div>
+        <div class="container black">
+            <div class="gallery_header_placeholder">
+                <hr>
+                <h1 class="gallery_header">Get Connected</h1>
+                <div class="gallery-wrap">
+                    <div class="item item-1"></div>
+                    <div class="item item-2"></div>
+                    <div class="item item-3"></div>
+                    <div class="item item-4"></div>
+                    <div class="item item-5"></div>
+                    <div class="item item-6"></div>
+                    <div class="item item-7"></div>
+                    <div class="item item-8"></div>
+                    <div class="item item-9"></div>
+                    <div class="item item-10"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-container">
+            <!-- Logo and School Name -->
+            <div class="footer-logo">
+                <img src="{% static 'sms/img/school-logo (2).png' %}" alt="School Logo">
+                <h1>High School</h1>
+            </div>
+            <!-- Navigation Links -->
+            <nav class="footer-nav">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'admission' %}">New Admission</a>
+            </nav>
+            <!-- Footer Description -->
+            <p class="footer-description">
+                Welcome to High School, where we nurture young minds to achieve their full potential.
+                Join our vibrant community dedicated to excellence in education, personal growth, and lifelong learning.
+                Contact us today!
+            </p>
+            <!-- Social Media Icons -->
+            <div class="footer-social">
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/facebook-new.png" alt="Facebook"></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/instagram-new.png"
+                        alt="Instagram"></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/linkedin.png" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'sms/js/navbar.js' %}"></script>
+    <script src="{% static 'sms/js/mobileview.js' %}"></script>
+</body>
+
+</html>

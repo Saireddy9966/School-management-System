@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Parent/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Parent</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Attendance</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+            <h1>Ward's Attendance</h1>
+              <div class="attendance-table">
+                  {% for year, months in attendance_by_year.items %}
+                  <strong>{{ year }}</strong>
+                  <table border="1">
+                      <thead>
+                          <tr>
+                              <th>Month</th>
+                              <th>Total Days</th>
+                              <th>Days Absent</th>
+                              <th>Days Present</th>
+                              <th>Attendance Percentage</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for month_data in months %}
+                          <tr>
+                              <td>{{ month_data.month }}</td>
+                              <td>{{ month_data.total_days }}</td>
+                              <td>{{ month_data.days_absent }}</td>
+                              <td>{{ month_data.days_present }}</td>
+                              <td>{{ month_data.attendance_percentage }}%</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--This is for the scrolling to the active a element in Nav Bar-->
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const activeLink = document.querySelector("a.active");
+      if (activeLink) {
+          const linkId = activeLink.id;
+          const linkElement = document.getElementById(linkId);
+          linkElement.scrollIntoView({ behavior: "smooth" });
+      }
+  });
+
+  //This is for the ScrollBar in nav
+  const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+  
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+  
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

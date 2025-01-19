@@ -1,0 +1,1953 @@
+.main-content{
+    h1{
+        text-align: center;
+    }
+}
+
+.admin-register {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    position: relative;
+    height: 100%;
+}
+
+/*This is for all the tables involved*/
+table {
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+
+    .actions-block{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        hr{
+            margin-right: 5px;
+            margin-left: 5px;
+            height: 15px;
+            border: 0.5px solid black;
+        }
+    }
+}
+
+thead{
+    th{
+        background-color: #6988ff;/*need to change color*/
+        color: whitesmoke;/*need to change color according to the background color*/
+    }
+}
+  
+th,td {
+    border: 2px solid black;
+    padding: 8px;
+    text-align: left;
+}
+  
+tr:nth-child(even) {
+    background-color:  rgb(231, 240, 255);
+}
+
+/*This is for the Pop-up Form on every page*/
+.close {
+    color: black;/*need to change color*/
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;/*need to change color*/
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form button {
+  border: 2px solid #6988ff;/*need to change color*/
+  color: black;/*need to change color*/
+  padding: 14px 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;;
+  background-color: white;
+}
+
+button:hover {
+    background-color: #6988ff;/*need to change color*/
+    color: whitesmoke;/*need to change color according to the background color*/
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    margin-top: 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    width: 20%;
+    border-radius: 10px;
+    border: 2px solid red;/*need to change color*/
+    color: black;/*need to change color*/
+
+  &:hover{
+    background-color: red;/*need to change color*/
+    color: whitesmoke;/*need to change color according to the background color*/
+  }
+}
+
+/* Center the image and position the close button */
+label{
+    color: black;
+}
+input, select{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 2px solid black;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.submit-button{
+  text-align: center;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1;
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: hwb(0 0% 100% / 0.46); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;/*need to change color*/
+  margin: 5% auto 15% auto;
+  border: 1px solid #888;/*need to change color according to the background color*/
+  width: 50px; 
+}
+
+form{
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: #333;
+    max-width: 50%;
+}
+
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/*This is for the Register Approvals Page*/
+.created-register-container{
+    margin-top: 5px;
+    z-index: 1;
+    position: relative;
+
+    .register-tabs-container {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        background-color: inherit;
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+        margin-bottom: 10px;
+    }
+
+
+    .register-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        font-size: 17px;
+        width: 100%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .register-tab:hover {
+        background-color: rgb(231, 240, 255);
+        color: #6988ff;
+    }
+      
+    .register-tab.active{
+        background-color: #6988ff;
+        color: whitesmoke;
+    }
+
+
+    .student-register-tabs, .parent-register-tabs{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        background-color: inherit;
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+        margin-bottom: 3px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .student-register-tab, .parent-register-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.5s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .student-register-tab:hover,.parent-register-tab:hover {
+        background-color: rgb(217, 231, 254);
+        color: #6988ff;
+    }
+      
+    .student-register-tab.active, .parent-register-tab.active{
+        background-color: #6988ff;
+        color: Whitesmoke;
+    }
+
+    .staff-register-tabs, .faculty-register-tabs{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        background-color: inherit;
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+        margin-bottom: 3px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .staff-register-tab, .faculty-register-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.5s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .staff-register-tab:hover, .faculty-register-tab:hover {
+        background-color: rgb(217, 231, 254);
+        color: #5d87ff;
+    }
+      
+    .staff-register-tab.active, .faculty-register-tab.active{
+        background-color: #6988ff;
+        color: whitesmoke;
+    }
+}
+
+/*This is for the Classes Page*/
+.admin-class{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .classes-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color according to the background color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+            background-color: inherit;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color according to the background color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-class-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-class-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+.created-class-container{
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+
+    .created-class{
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .class-name{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            h2{
+                color: whitesmoke;
+            }
+        }
+    }
+
+    .class-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        a{
+            background-color: inherit;
+            text-decoration: none;
+        }
+
+        .class-edit{
+            margin-left: 10px;
+            margin-right: 5px;
+            z-index: 6;
+
+            &:hover{
+                margin-bottom: 3px;
+            }
+        }
+
+        .class-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+}
+
+/*This is for the Section page*/
+.admin-section{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .section-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color according to the background color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+            background-color: inherit;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color according to the background color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-section-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-section-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-section-container{
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+
+    .created-section{
+        margin: 5px 0px 5px 0px;
+        border: 1px solid #6988ff;/*need to change color according to the background color*/
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 80px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .section-name-container{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            color: whitesmoke;
+            flex-direction: column;
+            .class-name{
+                height: 35px;
+
+                h2{
+                    color: whitesmoke;
+                    align-content: center;
+                }
+            }
+
+            .section-name{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                h4{
+                    color: whitesmoke;
+                }
+
+                h2, h5{
+                    margin-right: 3px;
+                    margin-left: 3px;
+                    align-content: center;
+                }
+                hr{
+                    height: 20px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    border:1px solid whitesmoke;/*need to change color according to the background color*/
+                }
+            }
+        }
+    }
+
+    .section-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        a{
+            background-color: inherit;
+            text-decoration: none;
+        }
+
+        .section-edit{
+            margin-right: 5px;
+            margin-left: 10px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+
+        .section-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+}
+
+/*This is for the Section Page*/
+.admin-subject{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .subject-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color according to the background color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 24px;
+            background-color: inherit;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color according to the background color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-subject-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-subject-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-subject-container{
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+
+    .created-subject{
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 80px;
+        border-radius: 10px;
+        cursor: pointer;
+
+
+        .subject-name-container{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: column;
+
+            .class-name{
+                height: 35px;
+                h2{
+                    color: whitesmoke;
+                }
+            }
+
+            .subject-name{
+                align-content: center;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                h2, h5{
+                    margin-right: 3px;
+                    margin-left: 3px;
+                    align-content: center;
+                    color: whitesmoke;
+                }
+                hr{
+                    height: 20px;
+                    border:1px solid whitesmoke;/*need to change color according to the background color*/
+                }
+            }
+        }
+    }
+
+    .subject-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        a{
+            text-decoration: none;
+            background-color: inherit;
+        }
+
+        .subject-edit{
+            margin-right: 5px;
+            margin-left: 10px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+
+        .subject-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+}
+
+/*This is for the Exam Time Table Page*/
+/*This is for the Exams Page*/
+
+.admin-exams{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .exams-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color according to the background*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            background-color: inherit;
+            cursor: pointer;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color according to the  background color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .exam-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;/*need to change color according to the background color*/
+        background-color: inherit;/*need to change color*/
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .exam-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .exam-tab:hover {
+        background-color: rgb(231, 240, 255);
+        color: #5d87ff;
+    }
+      
+    .exam-tab.active{
+        background-color: #6988ff;/*need to change color*/
+        color: whitesmoke;/*need to change color according to the background color*/
+    }
+}
+
+.add-button button span#add-exams-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-exams-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-exams-container{
+    margin-top: 5px;
+
+}
+
+#exam-form{
+    .class-section-select-container{
+        display: flex;
+        flex-direction: row;
+        
+        .class-selector, .section-selector{
+            width: 50%;
+            margin: 0px 2px 0px 2px;
+        }
+    }
+
+    .exam-type-selector {
+        display: flex;
+        flex-direction: row;
+
+        .select-exam-type, .select-unit-test-number{
+            width: 50%;
+            margin: 0px 2px 0px 2px;
+        }
+    }
+}
+
+/*This is for the Department Page*/
+.admin-department{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .department-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color according to the background color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+            background-color: inherit;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color according to the background color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-department-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-department-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-department-container{
+    margin-top: 5px;
+
+    .created-department{
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .department-name{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            h2{
+                color: whitesmoke;
+            }
+        }
+    }
+
+    .department-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .department-edit{
+            margin-right: 5px;
+            margin-left: 10px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+
+        .department-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+
+    #collapsible {
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .department-name{
+            margin-left: 10px;
+            align-content: center;
+            h2{
+                color: whitesmoke;
+            }
+        }   
+    }
+
+    .department-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+    }
+}
+
+/*This is for the Academic Session Page*/
+.admin-academic{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .academic-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 24px;
+            background-color: inherit;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-academic-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-academic-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-academic-container{
+    margin-top: 5px;
+
+    .created-academic{
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .academic-name{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            h2, h5{
+                margin-right: 3px;
+                margin-left: 3px;
+                align-content: center;
+                color: whitesmoke;
+                justify-content: center;
+            }
+            hr{
+                height: 30px;
+                border:1px solid whitesmoke;/*need to change color*/
+            }
+        }
+    }
+
+    .academic-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .academic-edit{
+            margin-right: 5px;
+            margin-left: 10px;
+            z-index: 6;
+
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+
+        .academic-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+
+}
+
+#academic-form{
+
+    .academic-session-years{
+        display: flex;
+        flex-direction: row;
+
+        .academic-session-start, .academic-session-end{
+            margin: 10px 2px 10px 2px;
+            width: 100%;
+        }
+    }
+}
+
+/*This is for the Employee Category Page*/
+.admin-employee{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.add-button button span#add-employee-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-employee-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-employee-container{
+    margin-top: 5px;
+
+    .employee-categories-tabs {
+        display: flex;
+        flex-direction: row;
+        color: black;
+        border: 1px solid black;/*need to change color*/
+        background-color: inherit;/*need to change color*/
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .employee-categories-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .employee-categories-tab:hover {
+        background-color: rgb(231, 240, 255);
+        color: #6988ff;
+    }
+      
+    .employee-categories-tab.active{
+          background-color: #6988ff;/*need to change color*/
+          color: whitesmoke;/*need to change color*/
+    }
+
+    .created-teacher, .created-non-teacher{
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 10px;
+        cursor: pointer;
+
+
+        .teacher-name, .non-teacher-name{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            h2, h5{
+                color: whitesmoke;
+                margin-right: 3px;
+                margin-left: 3px;
+                align-content: center;
+            }
+        }
+    }
+
+    .teacher-functions, .non-teacher-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .teacher-edit, .non-teacher-edit{
+            margin-right: 5px;
+            margin-left: 10px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+
+        .teacher-delete, .non-teacher-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+}
+
+/*This is for the Leaves Page*/
+.admin-leaves{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .button-container{
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .assign-teacher-leaves-button, .assign-non-teacher-leaves-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            background-color: inherit;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.created-leaves-container{
+    margin-top: 5px;
+
+    .leaves-tabs-container {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        background-color: inherit;
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+        margin-bottom: 10px;
+    }
+
+
+    .leaves-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .leaves-tab:hover {
+        background-color: rgb(231, 240, 255);
+        color: #6988ff;
+    }
+      
+    .leaves-tab.active{
+          background-color: #6988ff;/*need to change color*/
+          color: whitesmoke;/*need to change color*/
+    }
+}
+
+/*This is for the Student Payment Type Page*/
+.admin-payment{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .payment-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            background-color: inherit;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-payment-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-payment-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+.created-payment-container{
+    margin-top: 5px;
+
+    .created-payment{
+        margin: 5px 0px 5px 0px;
+        border: 2px solid #6988ff;
+        background-color: #6988ff;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .class-name-payment{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    .class-payment-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+    }
+}
+
+#payment-form{
+
+    .student-details{
+        display: flex;
+        flex-direction: row;
+
+        .student-name, .student-ID{
+            width: 100%;
+            margin: 0px 2px 0px 2px;
+        }
+    }
+
+    .student-class-details{
+        display: flex;
+        flex-direction: row;
+
+        .student-class, .student-section{
+            width: 100%;
+            margin: 0px 2px 0px 2px;
+        }
+    }
+
+    .student-payment-details{
+        display: flex;
+        flex-direction: row;
+
+        .student-payment-type, .student-payment-number{
+            width: 100%;
+            margin: 0px 2px 0px 2px;
+        }
+    }
+}
+/*This is for the Fee Collection Page*/
+.admin-fee{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .fee-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            background-color: inherit;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-fee-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-fee-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+.created-fee-container{
+    margin-top: 5px;
+
+    .created-fee{
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .class-name-fee{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            h2{
+                color: whitesmoke;
+            }
+        }
+    }
+
+    .class-fee-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color:inherit;
+    }
+}
+/*This is for the Manage Bus Page*/
+.admin-manageBus{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .manageBus-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            background-color: inherit;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-manageBus-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-manageBus-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-manageBus-container{
+    margin-top: 5px;
+
+    .created-manageBus{
+        margin: 5px 0px 5px 0px;
+        background-color: #6988ff;/*need to change color*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .manageBus-name{
+            margin-left: 10px;
+            align-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            h2{
+                margin-right: 3px;
+                margin-left: 3px;
+                align-content: center;
+                color: whitesmoke;
+            }
+            hr{
+                height: 30px;
+                border:1px solid whitesmoke;
+            }
+        }
+    }
+
+    .manageBus-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+
+        .manageBus-tabs-container {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid black;/*need to change color*/
+            background-color: inherit;/*need to change color*/
+            align-items: center;
+            border-radius: 10px;
+            height: 35px;
+            padding: 1px 2px 1px 2px;
+        }
+    
+    
+        .manageBus-tabs {
+            display: inline-flex;
+            background-color: initial;
+            float: left;
+            border: none;
+            height: 25px;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 17px;
+            width: 50%;
+            border-radius: 7px;
+            margin-top: 1px;
+            margin-left: 2px;
+            margin-right: 2px;
+            margin-bottom: 1px;
+            color: black;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .manageBus-tabs:hover {
+            background-color: rgb(231, 240, 255);/*need to change color*/
+            color: #6988ff;
+        }
+          
+        .manageBus-tabs.active{
+              background-color: #6988ff;/*need to change color*/
+              color: whitesmoke;/*need to change color*/
+        }
+    }
+
+    .manageBus-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .manageBus-edit{
+            margin-right: 5px;
+            margin-left: 10px;
+            
+            &:hover{
+                margin-bottom: 3px;
+            }
+        }
+
+        .manageBus-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+}
+
+#manageBus-form{
+    .bus-route-details{
+
+        .driver-details{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .driver-name, .driver-number{
+                width: 50%;
+                margin: 0px 2px 0px 2px;
+            }
+        }
+
+        .bus-route-pick-up, .bus-route-drop-off{
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+/*This is for the Attendance Page*/
+.admin-attendance{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .attendance-button{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 10px;
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            cursor: pointer;
+            background-color: inherit;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .attendance-tabs {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;/*need to change color*/
+        background-color: inherit;/*need to change color*/
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .attendance-tab {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .attendance-tab:hover {
+        background-color: rgb(231, 240, 255);/*need to change color*/
+        color: #6988ff;
+    }
+      
+    .attendance-tab.active{
+        background-color: #6988ff;/*need to change color*/
+        color: whitesmoke;/*need to change color*/
+    }
+}
+
+.add-button button span#add-attendance-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-attendance-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-attendance-container{
+    margin-top: 5px;
+
+    .attendance-content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: inherit;
+    }
+}
+
+/*This is for the Time Table Page*/
+.admin-timetable{
+    position: relative;
+    z-index: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    .timetable-button{
+        display: flex;
+        justify-content: flex-end;
+
+        .add-button{
+            display: flex;
+            flex-direction: row;
+        }
+        button{
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #6988ff;/*need to change color*/
+            color: black;/*need to change color*/
+            padding: 7px 40px 7px 40px;
+            margin-right: 5px;
+            background-color: inherit;
+            cursor: pointer;
+            border-radius: 24px;
+            transition: ease-in-out 0.3s;
+            justify-content: center;
+
+            &:hover{
+                background-color:#6988ff;/*need to change color*/
+                color: whitesmoke;/*need to change color*/
+            }
+
+            span{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.add-button button span#add-timetable-symbol {
+    transition: transform 0.2s ease-in-out; /* add transition effect */
+}
+
+.add-button button:hover span#add-timetable-symbol {
+  transform: rotate(45deg); /* rotate 45 degrees on hover */
+}
+
+
+.created-timetable-container{
+    margin-top: 5px;
+
+    .timetable-tabs-container {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;/*need to change color*/
+        background-color: inherit;/*need to change color*/
+        align-items: center;
+        border-radius: 10px;
+        height: 35px;
+        padding: 1px 2px 1px 2px;
+    }
+
+
+    .timetable-tabs {
+        display: inline-flex;
+        background-color: initial;
+        float: left;
+        border: none;
+        height: 25px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 50%;
+        border-radius: 7px;
+        margin-top: 1px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 1px;
+        color: black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .timetable-tabs:hover {
+        background-color: rgb(231, 240, 255);/*need to change color*/
+        color: #6988ff;
+    }
+      
+    .timetable-tabs.active{
+          background-color: #6988ff;/*need to change color*/
+          color: whitesmoke;/*need to change color*/
+    }
+
+
+    .created-student-timetable, .created-staff-timetable{
+        margin: 5px 0px 5px 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .timetable-functions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .upload-timetable{
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+        }
+
+        .timetable-edit{
+            margin-right: 5px;
+            margin-left: 10px;
+            
+            &:hover{
+                margin-bottom: 3px;
+            }
+        }
+
+        .student-timetable-delete, .staff-timetable-delete{
+            margin-right: 10px;
+            margin-left: 5px;
+            z-index: 6;
+            
+            &:hover{
+                margin-bottom: 3px;
+                z-index: 6;
+            }
+        }
+    }
+}
+
+.welcome-message{
+    margin-left: 10px;
+}
+
+.admin-sms{
+    position: relative;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 480px){
+    span{
+        font-size: 8px;
+        font-stretch: extra-condensed;
+    }
+
+    table 
+    {
+        margin-top: 10px;
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+    
+    thead{
+        th{
+            background-color: #6988ff;
+            color: whitesmoke;
+        }
+    }
+    
+    th,td {
+        border: 1px solid #333;
+        text-align: left;
+    }
+    
+    tr:nth-child(even) {
+        background-color: rgb(231, 240, 255);
+    }   
+
+    .modal {
+        margin-top: 100px;
+    }
+
+    form{
+        padding: 20px;
+        border-radius: 5px;
+        color: #333;
+        max-width: 90%;
+    }
+
+    form button {
+        border: 2px solid #6988ff;/*need to change color*/
+        color: black;/*need to change color*/
+        padding: 14px 20px;
+        min-width: 100%;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: 0.3s;
+        background-color: white;
+    }
+
+    .submit-button{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .timetable-button{
+        margin-left: 1px;
+    }
+
+    .created-class-container{
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+
+    .created-section-container{
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 5px;
+    }
+
+    .created-subject-container{
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 5px;
+    }
+
+    .admin-timetable{
+        position: relative;
+        z-index: 1;
+        margin-left: 1px;
+        margin-right: 1px;
+        margin-top: 5px;
+    
+        .timetable-button{
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

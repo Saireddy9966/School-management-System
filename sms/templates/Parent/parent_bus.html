@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Parent/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Parent</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Ward's Bus Route</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content" style="overflow-y: auto;">
+              <!--Type from here onwards-->
+              <div class="bus-route">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d15196.783596469666!2d83.3896213!3d17.782488!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1714719637828!5m2!1sen!2sin" width="100%" height="350" style="border:1px solid coral;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  <div class="bus-timmings">
+                      <table>
+                          <thead>
+                              <tr>
+                                  <th>Bus Number</th>
+                                  <th>Driver Name</th>
+                                  <th>Driver Number</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>{{ bus_number }}</td>
+                                  <td>{{ driver_name }}</td>
+                                  <td>{{ driver_number }}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <div class="bus-tabs">
+                          <button type="button" class="exam-tab-button" onclick="show(event, 'pickUp')" id="defaultTimeTab"><strong>Pick Up</strong></button>
+                          <button type="button" class="exam-tab-button" onclick="show(event, 'dropOff')" ><strong>Drop Off</strong></button>
+                      </div>
+                      <div id="pickUp" class="bus-content">
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Pickup Location</th>
+                                      <th>Pickup Time</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for data in pickup_data %}
+                                  <tr>
+                                      <td>{{ data.pickup_location }}</td>
+                                      <td>{{ data.pickup_time }}</td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                      <div id="dropOff" class="bus-content">
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Dropoff Location</th>
+                                      <th>Dropoff Time</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for data in dropoff_data %}
+                                  <tr>
+                                      <td>{{ data.dropoff_location }}</td>
+                                      <td>{{ data.dropoff_time }}</td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--javascript-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+  </script>
+  <script>
+  function show(event, tabname) {
+      var i, tabcontent, tabbutton;
+      // Hide the tab content
+      tabcontent = document.getElementsByClassName("bus-content");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      // Remove the active class from all tab buttons
+      tabbutton = document.getElementsByClassName("exam-tab-button");
+      for (i = 0; i < tabbutton.length; i++) {
+        tabbutton[i].className = tabbutton[i].className.replace(" active", "");
+      }
+      // Set the selected tab to active and display the content
+      document.getElementById(tabname).style.display = "block";
+      event.currentTarget.classList.add("active");
+  }
+
+  document.getElementById('defaultTimeTab').click();
+  </script>
+  <!--This is for the scrolling to the active a element in Nav Bar-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+
+      //This is for the ScrollBar in nav
+      const nav = document.querySelector('nav');
+  
+          nav.addEventListener('scroll', () => {
+              nav.classList.add('scrolling');
+          });
+      
+          nav.addEventListener('mouseleave', () => {
+              nav.classList.remove('scrolling');
+          });
+      
+          nav.addEventListener('mouseover', () => {
+              nav.classList.add('scrolling');
+          });
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

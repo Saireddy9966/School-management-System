@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Staff/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Staff</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Salary Slips</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <div class="non-teacher-salary">
+                  <div class="class-contents">
+                    <h1>Salary Slips</h1>
+                      <table>
+                          <thead>
+                              <tr>
+                                  <th>Staff</th>
+                                  <th>Month</th>
+                                  <th>Year</th>
+                                  <th>File</th>
+                                  <th>Download</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for payslip in payslips %}
+                              <tr>
+                                  <td>{{ payslip.staff.name }}</td>
+                                  <td>{{ payslip.month }}</td>
+                                  <td>{{ payslip.year }}</td>
+                                  <td><a href="{{ payslip.file.url }}" target="_blank">View</a></td>
+                                  <td><a href="{{ payslip.file.url }}" download>Download</a></td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+      <!--This is for scrolling to the active li element-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+  </script>
+  <script>
+      const nav = document.querySelector('nav');
+  
+          nav.addEventListener('scroll', () => {
+              nav.classList.add('scrolling');
+          });
+      
+          nav.addEventListener('mouseleave', () => {
+              nav.classList.remove('scrolling');
+          });
+      
+          nav.addEventListener('mouseover', () => {
+              nav.classList.add('scrolling');
+          });
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Department</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-department">
+                  <div class="department-button">
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                              <span aria-hidden="true" id="add-department-symbol"><strong>+</strong></span>
+                              <span>Add Department</span>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="created-department-container" id="department-list">
+                      {% for department in departments %}
+                      <div class="department-collapsible-content">
+                          <div class="created-department" id="collapsible">
+                              <div class="department-name">
+                                  <h2>{{ department.name }}</h2>
+                              </div>
+                              <div class="department-functions" onclick="showEditForm('{{ department.id }}' )">
+                                  <div class="department-edit">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                          viewBox="0 0 24 24" fill="none" stroke="whitesmoke" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round">
+                                          <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34">
+                                          </path>
+                                          <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                                      </svg>
+                                  </div>
+                                  <div>
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="department-delete" width="20"
+                                          height="20" viewBox="0 0 24 24" fill="none" stroke="whitesmoke"
+                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                          <polyline points="3 6 5 6 21 6"></polyline>
+                                          <path
+                                              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                          </path>
+                                          <line x1="10" y1="11" x2="10" y2="17"></line>
+                                          <line x1="14" y1="11" x2="14" y2="17"></line>
+                                      </svg>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="department-content">
+                              <table>
+                                  <thead>
+                                      <tr>
+                                          <th>S.No</th>
+                                          <th>Faculty Name</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for faculty in department.faculty.all %}
+                                      <tr>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ faculty.name }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <!-- Edit form (initially hidden) -->
+                      <div id="editForm-{{ department.id }}" class="modal"  style="display: none;">
+                          <form method="post" class="modal-content animate" action="{% url 'edit_department' department.id %}">
+                              {% csrf_token %}
+                              <span class="close" onclick="closeEditForm('{{ department.id }}')">&times;</span>
+                              <input type="text" name="name" value="{{ department.name }}">
+
+                              <!-- List of faculties with remove option -->
+                              <h3>Select faculties to remove:</h3>
+                              <ul>
+                                  {% for faculty in department.faculty.all %}
+                                  <li>
+                                      {{ faculty.name }}
+                                      <input type="checkbox" name="faculty_to_remove"
+                                          value="{{ faculty.faculty_id }}">
+                                  </li>
+                                  {% endfor %}
+                              </ul>
+                              <!-- Faculty Selection for Addition -->
+                              {% if messages %}
+                              <div class="messages">
+                                  {% for message in messages %}
+                                  <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                                      {{ message }}
+                                  </div>
+                                  {% endfor %}
+                              </div>
+                              {% endif %}
+                              <h3>Add Faculty:</h3>
+                              <select id="faculty_to_add" name="faculty_to_add" multiple>
+                                  {% for faculty in faculties %}
+                                  <option value="{{ faculty.faculty_id }}">{{ faculty.name }}</option>
+                                  {% endfor %}
+                              </select>
+
+                              <!-- Hidden field to store the original department name -->
+                              <input type="hidden" name="original_name" value="{{ department.name }}">
+                              <button type="submit">Save Changes</button>
+                              <button type="button" onclick="closeEditForm('{{ department.id }}')">Close</button>
+                          </form>
+                      </div>
+                      {% endfor %}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--This brings up the class adding form-->
+  <div id="id01" class="modal" style="display: none;">
+      <form id="department-form" class="modal-content animate" action="{% url 'departments' %}" method="post">
+          {% csrf_token %}
+          {% if messages %}
+          <div class="messages">
+              {% for message in messages %}
+              <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                  {{ message }}
+              </div>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <span class="close" onclick="closeDepartmentForm()">&times;</span>
+          <div class="container">
+              <label for="department-name">Department Name</label>
+              <input type="text" placeholder="Enter Department Name" name="name" id="name" required>
+              <br><br>
+              {{ form.faculty}}
+              <div class="submit-button">
+                  <button type="submit">Create Class</button>
+                  <button type="button" onclick="closeDepartmentForm()"
+                      class="cancelbtn">Cancel</button>
+              </div>
+          </div>
+      </form>
+  </div>
+  <script>
+      function closeDepartmentForm(){
+        const formData = document.getElementById('department-form');
+        formData.reset()
+    
+        document.getElementById('id01').style.display='none'
+      }
+  </script>
+  <!--This is for the ScrollBar in the Nav Bar-->
+  <script>
+      const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+  </script>
+  <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+  </script>
+  <!--This is for the collapsible content-->
+  <script>
+      var coll = document.querySelectorAll("#collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function (event) {
+              event.target.classList.toggle("active"); // Change this line
+              var content = event.target.nextElementSibling; // Change this line
+              if (content.style.display === "block") {
+                  content.style.display = "none";
+              } else {
+                  content.style.display = "block";
+              }
+          });
+      }
+  </script>
+
+  <script>
+      function showEditForm(departmentId) {
+          // Hide all edit forms first (if any are shown)
+          var allEditForms = document.querySelectorAll('[id^="editForm-"]');
+          allEditForms.forEach(function (form) {
+              form.style.display = 'none';
+          });
+
+          // Show the edit form for the clicked department
+          var editForm = document.getElementById('editForm-' + departmentId);
+          if (editForm) {
+              editForm.style.display = 'block';
+          }
+      }
+      function closeEditForm(departmentId) {
+          var editForm = document.getElementById('editForm-' + departmentId);
+          editForm.style.display = 'none';
+      }
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

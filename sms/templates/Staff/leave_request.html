@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Staff/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Staff</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Leave Request</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <div class="timetable-button">
+                  <div class="add-button">
+                      <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                          <span aria-hidden="true" id="add-timetable-symbol"><strong>+</strong></span>
+                          <span>Apply For Leave</span>
+                      </button>
+                  </div>
+              </div>
+              <!--Type from here onwards-->
+              <div class="leaves-container">
+                  <div class="non-teacher-leaves-table">
+                      <head>
+                      <body>
+                          <h1>Staff Leave Information</h1>
+                          <table>
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Total Leaves Allocated</th>
+                                    <th>Leaves Taken</th>
+                                    <th>Remaining Leaves</th>
+                                </tr>
+                            </thead>
+                              {% for data in leave_data %}
+                                  <tr>
+                                      <td>{{ data.month }}</td>
+                                      <td>{{ data.allocated_leaves }}</td>
+                                      <td>{{ data.leaves_taken }}</td>
+                                      <td>{{ data.remaining_leaves }}</td>
+                                  </tr>
+                              {% endfor %}
+                          </table>
+                      </tbody>    
+                  </div>
+                  <h1>Leave Request Status</h1>
+                  {% if leave_requests %}
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>Name</th>
+                              <th>Created At (IST)</th>
+                              <th>LeaveType</th>
+                              <th>Reason</th>
+                              <th>Start Date</th>
+                              <th>End Date</th>
+                              <th>Status</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for leave_request in leave_requests %}
+                          <tr>
+                              <td>{{ leave_request.user }}</td>
+                              <td>{{ leave_request.created_at|date:"Y-m-d H:i:s T" }}</td>
+                              <td>{{ leave_request.leave_type }}</td>
+                              <td>{{ leave_request.reason }}</td>
+                              <td>{{ leave_request.start_date }}</td>
+                              <td>{{ leave_request.end_date }}</td>
+                              <td>{{ leave_request.status }}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                  {% else %}
+                  <p>No leave request found.</p>
+                  {% endif %}
+              </div>    
+                  <div id="id01" class="modal" style="display: none;">
+                      <div class="leaves-form">
+                          <h2>Apply for Leave</h2>
+                          <form id="leaves-form" class="modal-content animate" method="post" action="{% url 'staff_leave_request' %}">
+                              {% csrf_token %}
+                              <label for="leave-type">Leave Type:</label>
+                              {{ form.leave_type }}
+                              <br>
+                              <label for="start-date">Start Date:</label>
+                              <input type="date" id="start_date" name="start_date" placeholder="Start Date"
+                                  value="{{ form.name.value }}" required="">
+                              <br>
+                              <label for="end-date">End Date:</label>
+                              <input type="date" id="end_date" name="end_date" placeholder="End Date"
+                                  value="{{ form.name.value }}" required="">
+                              <br>
+                              <label for="reason">Reason:</label>
+                              <textarea id="reason" name="reason" placeholder="Reason" value="{{ form.name.value }}"
+                                  required=""></textarea>
+                              <br>
+                              <div class="submit-button">
+                                <button type="submit">Apply for Leave</button>
+                                <button type="button" class="cancelbtn" onclick="closeForm()">Cancel</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+          </div>
+      </div>
+  </div>
+  <!--This is for resetting the form-->
+  <script>
+      function closeForm() {
+          const formData = document.getElementById('leaves-form');
+          formData.reset();
+          document.getElementById('id01').style.display = 'none';
+      }
+  </script>
+  <!--This is for scrolling to the active li element-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+  </script>
+  <script>
+      const nav = document.querySelector('nav');
+  
+          nav.addEventListener('scroll', () => {
+              nav.classList.add('scrolling');
+          });
+      
+          nav.addEventListener('mouseleave', () => {
+              nav.classList.remove('scrolling');
+          });
+      
+          nav.addEventListener('mouseover', () => {
+              nav.classList.add('scrolling');
+          });
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

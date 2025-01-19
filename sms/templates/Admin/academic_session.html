@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed"
+  data-header-position="fixed">
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Academic Session</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img src="/static/assets/images/ChatBc.png" alt="" class="img-fluid mb-n4" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="main-content">
+          <!--Type from here onwards-->
+          <div class="admin-academic">
+            <div class="academic-button">
+              <div class="add-button">
+                <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                  <span aria-hidden="true" id="add-academic-symbol"><strong>+</strong></span>
+                  <span>Add Academic Session</span>
+                </button>
+              </div>
+            </div>
+            <div class="created-academic-container" id="academic-list">
+              {% for academic in academics %}
+              <div class="created-academic">
+                <div class="academic-name">
+                  <h2>Academic Session: {{ academic.session_name }}</h2>
+                  <hr>
+                  <h5>{{ academic.start_date }} - {{ academic.end_date }}</h5>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--This brings up the class adding form-->
+    <div id="id01" class="modal" style="display: none;">
+      <form id="academic-form" class="modal-content animate" action="{% url 'academic_session' %}" method="post">
+        {% csrf_token %}
+        <span class="close" onclick="closeAcademicForm()">&times;</span>
+        <div class="container">
+          <label for="academic-name"><b>Academic Session Name</b></label>
+          <input type="text" placeholder="Enter Academic Session Name" name="session_name" id="session_name" required>
+          <div class="academic-session-years">
+            <div class="academic-session-start">
+              <label for="academic-start">Start Of Academic Session</label>
+              <input type="date" name="start_date" id="start_date">
+            </div>
+            <div class="academic-session-end">
+              <label for="academic-end">End Of Academic Session</label>
+              <input type="date" name="end_date" id="end_date" required>
+            </div>
+          </div>
+          <div class="submit-button">
+            <button type="submit">Create Class</button>
+            <button type="button" onclick="closeAcademicForm()" class="cancelbtn">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+
+        dateInputs.forEach(input => {
+          input.addEventListener('input', function (event) {
+            let value = event.target.value;
+
+            // Check if value length exceeds 10 characters (yyyy-mm-dd)
+            if (value.length > 10) {
+              event.target.value = value.slice(0, 10);
+            }
+
+            // Extract the year part
+            let year = value.split('-')[0];
+            if (year.length > 4) {
+              // If year exceeds 4 digits, truncate it
+              event.target.value = year.slice(0, 4) + value.slice(4);
+            }
+          });
+        });
+      });
+    </script>
+    <script>
+      function closeAcademicForm() {
+        formData = document.getElementById('academic-form');
+        formData.reset();
+        document.getElementById('id01').style.display = 'none';
+
+      }
+    </script>
+    <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const activeLink = document.querySelector("a.active");
+        if (activeLink) {
+          const linkId = activeLink.id;
+          const linkElement = document.getElementById(linkId);
+          linkElement.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    </script>
+    <!--This is for the ScrollBar in the NavBar-->
+    <script>
+      const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+        nav.classList.add('scrolling');
+      });
+
+      nav.addEventListener('mouseleave', () => {
+        nav.classList.remove('scrolling');
+      });
+
+      nav.addEventListener('mouseover', () => {
+        nav.classList.add('scrolling');
+      });
+    </script>
+
+  </div>
+</div>
+</div>
+{% endblock %}

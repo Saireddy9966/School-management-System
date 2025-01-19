@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice</title>
+</head>
+<body>
+    <h1>Invoice</h1>
+    <p>Student Name: {{ student.name }}</p>
+    <p>Class: {{ student.class_name.name }}</p>
+    <p>Section: {{ student.section_linked.name }}</p>
+    <p>Fees Type: {{ payment.fees_type }}</p>
+    <p>Amount Paid: ₹{{ payment.amount }}</p>
+    <p>Payment Status: {{ payment_status }}</p>
+    <p>Payment Mode: {{ payment.payment_type }}</p>
+    <p>Payment ID: {{ payment.receipt_number }}</p>
+</body>
+</html>

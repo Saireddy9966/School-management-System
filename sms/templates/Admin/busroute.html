@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Bus Route</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-manageBus">
+                  <div class="manageBus-button">
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                              <span aria-hidden="true" id="add-manageBus-symbol"><strong>+</strong></span>
+                              <span>Add Bus Route</span>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="created-manageBus-container" id="manageBus-list">
+                      {% for bus_route in bus_routes %}
+                      <div class="manageBus-collapsible-content">
+                          <!--This is the Tab that will hide the content toggling this tab will show the content-->
+                          <div class="created-manageBus" id="collapsible">
+                              <div class="manageBus-name">
+                                  <h2>{{ bus_route.route_name }} - {{ bus_route.bus_number }}</h2>
+                                  <hr>
+                                  <h2>{{ bus_route.driver_name }} - {{ bus_route.driver_number }}</h2>
+                              </div>
+                          </div>
+                          <div class="manageBus-content">
+                              <div id="pick-up" class="manageBus-timing">
+                                  <h1>Pick-Up</h1>
+                                  <table>
+                                      <thead>
+                                          <tr>
+                                              <th>Location Name</th>
+                                              <th>Pick Up Time</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for pickup_location in bus_route.pickup_locations.all %}
+
+                                          <tr>
+                                              <td>{{ pickup_location.location }}</td>
+                                              <td>{{ pickup_location.time }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <div id="drop-off" class="manageBus-timing">
+                                  <h1>Drop-Off</h1>
+                                  <table>
+                                      <thead>
+                                          <tr>
+                                              <th>Location Name</th>
+                                              <th>Drop Off Time</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for dropoff_location in bus_route.dropoff_locations.all %}
+                                          <tr>
+                                              <td>{{ dropoff_location.location }}</td>
+                                              <td>{{ dropoff_location.time }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--This brings up the class adding form-->
+      <div id="id01" class="modal" style="display: none;">
+          <form id="manageBus-form" class="modal-content animate" method="post">
+              {% csrf_token %}
+              <span class="close" onclick="closeManageBusForm()">&times;</span>
+              <div class="container">
+                  <label for="route-name"><b>Route Name</b></label>
+                  <input type="text" placeholder="Enter Route Name" name="route_name" id="route_name" required>
+                  <label for="route-name"><b>Bus Number</b></label>
+                  <input type="text" placeholder="Enter Bus Number" name="bus_number" id="bus_number" required>
+                  <div class="bus-route-details">
+                      <div class="driver-details">
+                          <div class="driver-name">
+                              <label for="driver-name"><b>Driver Name</b></label>
+                              <input type="text" placeholder="Enter Driver Name" name="driver_name" id="driver_name"
+                                  required>
+                          </div>
+                          <div class="driver-number">
+                              <label for="driver-phone"><b>Driver Phone</b></label>
+                              <input type="tel" placeholder="Enter Driver Phone" name="driver_number"
+                                  id="driver_number" minlength="10" required>
+                          </div>
+                      </div>
+                      <h3>
+                          <center>This Is For Pick Up</center>
+                      </h3>
+                      <div class="bus-route-pick-up">
+                          <table id="bus-pickup-table">
+                              <thead>
+                                  <tr>
+                                      <th>Pick-Up Location</th>
+                                      <th>Pick-Up Time</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><input type="text" name="pickup_location" required></td>
+                                      <td><input type="time" name="pickup_time" required></td>
+                                      <td><button type="button" class="delete-pick-up-row">Delete</button></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <button type="button" id="add-pick-up-row">Add Row</button>
+                      </div>
+
+                      <h3>
+                          <center>This Is For Drop Off</center>
+                      </h3>
+                      <div class="bus-route-drop-off">
+                          <table id="bus-dropoff-table">
+                              <thead>
+                                  <tr>
+                                      <th>Drop-Off Location</th>
+                                      <th>Drop-Off Time</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><input type="text" name="dropoff_location" required></td>
+                                      <td><input type="time" name="dropoff_time" required></td>
+                                      <td><button type="button" class="delete-drop-off-row">Delete</button></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <button type="button" id="add-drop-off-row">Add Row</button>
+                      </div>
+                  </div>
+                  <div class="submit-button">
+                      <button type="submit">Create Class</button>
+                      <button type="button" onclick="closeManageBusForm()"
+                          class="cancelbtn">Cancel</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <script>
+          document.addEventListener("DOMContentLoaded", function () {
+              document.getElementById('add-pick-up-row').addEventListener('click', function () {
+                  var table = document.getElementById('bus-pickup-table').getElementsByTagName('tbody')[0];
+                  var newRow = table.insertRow();
+                  var cell1 = newRow.insertCell(0);
+                  var cell2 = newRow.insertCell(1);
+                  var cell3 = newRow.insertCell(2);
+                  cell1.innerHTML = '<input type="text" name="pickup_location" required>';
+                  cell2.innerHTML = '<input type="time" name="pickup_time" required>';
+                  cell3.innerHTML = '<button type="button" class="delete-pick-up-row">Delete</button>';
+                  addDeleteEventToButtons();
+              });
+
+              document.getElementById('add-drop-off-row').addEventListener('click', function () {
+                  var table = document.getElementById('bus-dropoff-table').getElementsByTagName('tbody')[0];
+                  var newRow = table.insertRow();
+                  var cell1 = newRow.insertCell(0);
+                  var cell2 = newRow.insertCell(1);
+                  var cell3 = newRow.insertCell(2);
+                  cell1.innerHTML = '<input type="text" name="dropoff_location" required>';
+                  cell2.innerHTML = '<input type="time" name="dropoff_time" required>';
+                  cell3.innerHTML = '<button type="button" class="delete-drop-off-row">Delete</button>';
+                  addDeleteEventToButtons();
+              });
+              document.querySelectorAll('.delete-pick-up-row').forEach(button => {
+                  button.addEventListener('click', function () {
+                      var row = button.parentElement.parentElement;
+                      row.parentElement.removeChild(row);
+                  });
+              });
+
+              document.querySelectorAll('.delete-drop-off-row').forEach(button => {
+                  button.addEventListener('click', function () {
+                      var row = button.parentElement.parentElement;
+                      row.parentElement.removeChild(row);
+                  });
+              });
+          });  
+      </script>
+      <!--This is for the collapsible content-->
+      <script>
+          var coll = document.querySelectorAll("#collapsible");
+          var i;
+                  
+          for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function(event) {
+              event.target.classList.toggle("active"); // Change this line
+              var content = event.target.nextElementSibling; // Change this line
+              if (content.style.display === "block") {
+                content.style.display = "none";
+              } else {
+                content.style.display = "block";
+              }
+            });
+          }
+      </script>
+      <!--This is for resetting the form--> 
+      <script>
+          function closeManageBusForm(){
+              formData = document.getElementById('manageBus-form');
+              formData.reset();
+              document.getElementById('id01').style.display='none';
+
+          }
+      </script>
+      <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+      <script>
+          document.addEventListener("DOMContentLoaded", function() {
+              const activeLink = document.querySelector("a.active");
+              if (activeLink) {
+                  const linkId = activeLink.id;
+                  const linkElement = document.getElementById(linkId);
+                  linkElement.scrollIntoView({ behavior: "smooth" });
+              }
+          });
+      </script>
+      <script>
+      const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+      </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

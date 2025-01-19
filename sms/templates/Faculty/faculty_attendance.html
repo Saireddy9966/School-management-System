@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Faculty/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Faculty</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Attendance</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="teacher-marks">
+                  <div class="marks-button">
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                              <span aria-hidden="true" id="add-marks-symbol"><strong>+</strong></span>
+                              <span>Upload Attendance</span>
+                          </button>
+                      </div>
+                  </div>
+                  <button type="button" class="collapsible">My Attendance</button>
+                  <div class="class-content">
+                      {% for year, months in attendance_by_year.items %}
+                          <h2>{{ year }}</h2>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Month</th>
+                                      <th>Total Days</th>
+                                      <th>Days Absent</th>
+                                      <th>Days Present</th>
+                                      <th>Attendance Percentage</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for month_data in months %}
+                                      <tr>
+                                          <td>{{ month_data.month }}</td>
+                                          <td>{{ month_data.total_days }}</td>
+                                          <td>{{ month_data.days_absent }}</td>
+                                          <td>{{ month_data.days_present }}</td>
+                                          <td>{{ month_data.attendance_percentage }}%</td>
+                                      </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      {% endfor %}
+                  </div>
+              
+                  <h1>Take Attendance</h1>
+                  {% if messages %}
+                      <ul class="messages">
+                          {% for message in messages %}
+                              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                          {% endfor %}
+                      </ul>
+                  {% endif %}
+                  <div id="id01" class="modal" style="display: none;">
+                      <form method="post" class="modal-content animate" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <label for="class_assigned">Class Assigned:</label>
+                          <input type="text" id="class_assigned" name="class_assigned" value="{{ faculty.class_assigned.name }}" readonly required><br><br>
+                      
+                          <label for="section_assigned">Section Assigned:</label>
+                          <input type="text" id="section_assigned" name="section_assigned" value="{{ faculty.section_assigned.name }}" readonly><br>
+                      
+                          {{ form.as_p }}
+                          <div class="submit-button">
+                            <button type="submit">Submit Attendance</button>
+                            <button type="button" class="cancelbtn" onclick="document.getElementById('id01').style.display = 'none'">Cancel</button>
+                          </div>
+                      </form>
+                  </div>
+
+                  <h1>Attendance Records for {{ faculty.name }}</h1>
+                  {% if attendance_records %}
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>Date</th>
+                              <th>File</th>
+                              <th>Download</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for attendance in attendance_records %}
+                          <tr>
+                              <td>{{ attendance.date }}</td>
+                              <td>{{ attendance.filename }}</td>
+                              <td><a href="{{ attendance.file.url }}" download>Download</a></td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                  {% else %}
+                      <p>No attendance records found.</p>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+  <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+          var content = coll[i].nextElementSibling;
+          if (content.childElementCount === 0) {
+              coll[i].classList.add("disabled");
+          } else {
+              coll[i].addEventListener("click", function () {
+                  this.classList.toggle("active");
+                  var content = this.nextElementSibling;
+                  if (content.style.display === "block") {
+                      content.style.display = "none";
+                  } else {
+                      content.style.display = "block";
+                  }
+              });
+          }
+      }
+  </script>
+  <!--This is for the ScrollBar in the NavBar-->
+  <script>
+      const nav = document.querySelector('nav');
+  
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+  
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+  
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

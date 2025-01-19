@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Attendance</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-attendance">
+                  <div class="attendance-button">
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                              <span aria-hidden="true" id="add-attendance-symbol"><strong>+</strong></span>
+                              <span>Add Faculty Attendance</span>
+                          </button>
+                      </div>
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id02').style.display = 'block'">
+                              <span aria-hidden="true" id="add-attendance-symbol"><strong>+</strong></span>
+                              <span>Add Staff Attendance</span>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="created-attendance-container" id="attendance-list">
+                      <div class="attendance-tabs">
+                          <button type="button" class="attendance-tab" onclick="openTab(event, 'teachers')"
+                              id="defaultTab">Faculty</button>
+                          <button type="button" class="attendance-tab"
+                              onclick="openTab(event, 'non-teachers')">Staff</button>
+                      </div>
+                      <div class="attendance-content" id="teachers">
+                          <h1>Faculty Attendance Records</h1>
+                          {% if faculty_messages %}
+                          <div class="messages">
+                              {% for message in faculty_messages %}
+                              <center><h6>{{ message }}</h6></center>
+                              {% endfor %}
+                          </div>
+                          {% endif %}
+                          <table>
+                            {% for attendance in faculty_attendance_records %}
+                              <thead>
+                                  <tr>
+                                      <th>Date</th>
+                                      <th>File Name</th>
+                                      <th>Download</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>{{ attendance.date }}</td>
+                                      <td>{{ attendance.file.name|cut:"faculty_attendance/" }}</td>
+                                      <td><a href="{{ attendance.file.url }}" download>Download</a></td>
+                                  </tr>
+                              </tbody>
+                              {% endfor %}
+                          </table>
+                      </div>
+                      <div class="attendance-content" id="non-teachers">
+                          <h1>Staff Attendance Records</h1>
+                          {% if staff_messages %}
+                          <div class="messages">
+                              {% for message in staff_messages %}
+                              <center><h6>{{ message }}</h6></center>
+                              {% endfor %}
+                          </div>
+                          {% endif %}
+                          <table>
+                            {% for attendance in staff_attendance_records %}
+                              <thead>
+                                  <tr>
+                                      <th>Date</th>
+                                      <th>File Name</th>
+                                      <th>Download</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>{{ attendance.date }}</td>
+                                      <td>{{ attendance.file.name|cut:"staff_attendance/" }}</td>
+                                      <td><a href="{{ attendance.file.url }}" download>Download</a></td>
+                                  </tr>
+                              </tbody>
+                              {% endfor %}
+                          </table>
+                      </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--This brings up the class adding form-->
+      <div id="id01" class="modal" style="display: none;">
+          <form method="post" id="faculty-attendance-form" class="modal-content animate" enctype="multipart/form-data">
+              <h2>Faculty Attendance</h2>
+              {% csrf_token %}
+              {{ form.as_p }}
+              <div class="submit-button">
+                <button type="submit" name="submit_faculty">Submit Attendance</button>
+                <button type="button" onclick="closeAttendanceForm()"
+                    class="cancelbtn">Cancel</button>
+              </div>
+          </form>
+      </div>
+      <div id="id02" class="modal" style="display: none;">
+          <form method="post" id="staff-attendance-form" class="modal-content animate" enctype="multipart/form-data">
+              <h2>Staff Attendance</h2>
+              {% csrf_token %}
+              {{ staff_form.as_p }}
+              <div class="submit-button">
+                <button type="submit" name="submit_staff">Submit Attendance</button>
+                <button type="button" onclick="closeAttendanceForm()"
+                    class="cancelbtn">Cancel</button>
+              </div>
+          </form>
+      </div>
+      <!--This is for the tabs -->
+      <script>
+          function openTab(event, employee) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("attendance-content");
+                for (i = 0; i < tabcontent.length; i++) {
+                  tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("attendance-tab");
+                for (i = 0; i < tablinks.length; i++) {
+                  tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(employee).style.display = "block";
+                event.target.className += " active";
+          }
+          
+          // Get the element with id="defaultOpen" and click on it
+          document.getElementById("defaultTab").click();
+      </script>
+      <!--This is for Resetting the Form-->
+      <script>
+          function closeAttendanceForm(){
+              teacherFormData = document.getElementById('faculty-attendance-form');
+              nonTeacherFormData = document.getElementById('staff-attendance-form');
+              teacherFormData.reset();
+              nonTeacherFormData.reset();
+              document.getElementById('id01').style.display='none';
+              document.getElementById('id02').style.display='none';
+
+          }
+      </script>
+      <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+      <script>
+          document.addEventListener("DOMContentLoaded", function() {
+              const activeLink = document.querySelector("a.active");
+              if (activeLink) {
+                  const linkId = activeLink.id;
+                  const linkElement = document.getElementById(linkId);
+                  linkElement.scrollIntoView({ behavior: "smooth" });
+              }
+          });
+      </script>
+      <script>
+      const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+      </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

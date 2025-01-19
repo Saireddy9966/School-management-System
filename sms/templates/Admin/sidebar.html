@@ -1,0 +1,283 @@
+{% load static %}
+<!-- Sidebar Start -->
+
+<aside class="left-sidebar with-vertical">
+  <!-- Sidebar scroll-->
+  <div>
+    <div
+      class="brand-logo d-flex align-items-center justify-content-between pt-4"
+    >
+      <a href="{% url 'register_approval' %}" class="text-nowrap logo-img">
+        <img
+          src="{% static 'sms/img/pngtree-school-logo-png-image_6851480.png' %}"
+          class="dark-logo"
+          width="60"
+          alt="Ltw High School"/>
+          <span>LTW High School</span>
+      </a>
+      <div
+        class="close-btn d-lg-none d-block sidebartoggler cursor-pointer"
+        id="sidebarCollapse"
+      >
+        <i class="bi bi-x fs-8"></i>
+      </div>
+    </div>
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav scroll-sidebar pt-5" data-simplebar>
+      <ul id="sidebarnav">
+        <li class="sidebar-item active">
+          <a
+            class="sidebar-link"
+            href="{% url 'register_approval' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            how_to_reg
+            </span>
+            <span class="hide-menu">Register Approval</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'admission_messages' %}"
+            aria-expanded="false"
+          >
+            <span>
+              <i class="bi bi-mailbox2"></i>
+            </span>
+            <span class="hide-menu">Admission Details</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'contact_messages' %}"
+            aria-expanded="false"
+          >
+            <span>
+              <i class="bi bi-calendar"></i>
+            </span>
+            <span class="hide-menu">Contact Messages</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'classes' %}"
+            aria-expanded="false"
+          >
+            <span>
+              <i class="bi bi-app"></i>
+            </span>
+            <span class="hide-menu">Class</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'sections' %}"
+            aria-expanded="false"
+          >
+            <span>
+              <i class="bi bi-sign-intersection-fill"></i>
+            </span>
+            <span class="hide-menu">Sections</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'subjects' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            subject
+            </span>
+            <span class="hide-menu">Subjects</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'exam' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            analytics
+            </span>
+          <span class="hide-menu">Exams</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'departments' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            reorder
+            </span>
+            <span class="hide-menu">Departments</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'academic_session' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            school
+            </span>
+            <span class="hide-menu">Academic Session</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'employee_category' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            person_apron
+            </span>
+            <span class="hide-menu">Employee Category</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'leave_approval' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            approval
+            </span>
+            <span class="hide-menu">Leave Approval</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'fees' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            price_change
+            </span>
+            <span class="hide-menu">Fees</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'fees_payment' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            wallet
+            </span>
+            <span class="hide-menu">Fees Payment</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'salary_payment' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            payments
+            </span>
+            <span class="hide-menu">Salary Payment</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'busroute' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            directions_bus
+            </span>
+            <span class="hide-menu">Bus Route</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'send_sms' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            sms
+            </span>
+            <span class="hide-menu">SMS Message</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'attendance' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            two_pager
+            </span>
+            <span class="hide-menu">Attendance</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'timetable' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            calendar_clock
+          </span>
+          <span class="hide-menu">Timetable</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
+      <div class="hstack gap-3">
+        <div class="john-img">
+          <!-- <img
+            src="{% static 'assets/images/user-1.jpg' %}"
+            class="rounded-circle"
+            width="40"
+            height="40"
+            alt=""
+          /> -->
+        </div>
+        <div class="john-title">
+          <a href="{% url 'logout' %}">
+            <h6 class="mb-0 fs-4 fw-semibold">Signout</h6>
+          </a>
+          <span class="fs-2 text-dark"></span>
+        </div>
+        <button
+          class="border-0 bg-transparent ms-auto"
+          tabindex="0"
+          type="button"
+          aria-label="logout"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          data-bs-title="logout"
+        >
+          <a href="{% url 'logout' %}">
+            <i class="bi bi-power fs-6"> </i>
+          </a>
+        </button>
+      </div>
+    </div>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>
+
+<!-- Sidebar End -->

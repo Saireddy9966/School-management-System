@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Parent/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Parent</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Exam Time Table</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+            <h1>Ward's Exam Time Table</h1>
+              <!--Type from here onwards-->
+              <div class="parent-exams">
+                  <div class="tab">
+                      <div id="Exams" class="tab-content">
+                          <div class="exam-tabs">
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'unit')" id="defaultExamTab"><span>Unit Test</span></button>
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'quarterly')" ><span>Quarterly</span></button>
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'half-yearly')" ><span>Half Yearly</span></button>
+                              <button type="button" class="exam-tab-button" onclick="show(event, 'annually')" ><span>Annually</span></button>
+                          </div>
+                          <div id="unit" class="exam-tab-content">
+                              <h1>Unit Test Schedule for the Week</h1>
+                              <div class="unit-test-time-table">
+                                  {% for exam_type, exams in grouped_exams.items %}
+                                  {% if exam_type == 'Unit Test' %}
+                                  {% for unit_test_number, unit_exams in exams.items %}
+                                  <div class="unit-test-time-table">
+                                      <h2>Unit Test {{ unit_test_number }}</h2>
+                                      <table>
+                                          <thead>
+                                              <tr>
+                                                  {% for header in unit_exams.0.keys %}
+                                                      <th>{{ header }}</th>
+                                                  {% endfor %}
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              {% for exam in unit_exams %}
+                                                  <tr>
+                                                      {% for value in exam.values %}
+                                                          <td>{{ value }}</td>
+                                                      {% endfor %}
+                                                  </tr>
+                                              {% endfor %}
+                                          </tbody>
+                                      </table>
+                                  </div>
+                                  {% endfor %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <h2>Important Notice</h2>
+                                  <h3>Daily Classes Will Continue After The Exams</h3>
+                              </div>
+                          </div>
+                          <div id="quarterly" class="exam-tab-content">
+                              <h1>Quarterly Exams</h1>
+                              <div class="quarterly-time-table">
+                                  {% for exam_type, exams in grouped_exams.items %}
+                                  {% if exam_type == 'Quarterly' %}
+                                  {% for unit_test_number, unit_exam in exams.items %}
+                                  <table>
+                                      <thead>
+                                          <tr>
+                                              {% for header in unit_exam.0.keys %}
+                                                  <th>{{ header }}</th>
+                                              {% endfor %}
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for exam in unit_exam %}
+                                              <tr>
+                                                  {% for value in exam.values %}
+                                                      <td>{{ value }}</td>
+                                                  {% endfor %}
+                                              </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  </div>
+                                  {% endfor %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <h2>Important Notice</h2>
+                                  <h3>Daily Classes Will cancelled After The Exams</h3>
+                              </div>
+                          </div>
+                          <div id="half-yearly" class="exam-tab-content">
+                              <h1>Half-Yearly Exams</h1>
+                              <div class="half-yearly-time-table">
+                                  {% for exam_type, exams in grouped_exams.items %}
+                                  {% if exam_type == 'Half Yearly' %}
+                                  {% for unit_test_number, unit_exam in exams.items %}
+                                  <table>
+                                      <thead>
+                                          <tr>
+                                              {% for header in unit_exam.0.keys %}
+                                                  <th>{{ header }}</th>
+                                              {% endfor %}
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for exam in unit_exam %}
+                                              <tr>
+                                                  {% for value in exam.values %}
+                                                      <td>{{ value }}</td>
+                                                  {% endfor %}
+                                              </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  </div>
+                                  {% endfor %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <h2>Important Notice</h2>
+                                  <h3>Daily Classes Will cancelled After The Exams</h3>
+                              </div>
+                          </div>
+                          <div id="annually" class="exam-tab-content">
+                              <h1>Annually Exams</h1>
+                              <div class="annually-time-table">
+                                  {% for exam_type, exams in grouped_exams.items %}
+                                  {% if exam_type == 'Annual' %}
+                                  {% for unit_test_number, unit_exam in exams.items %}
+                                  <table>
+                                      <thead>
+                                          <tr>
+                                              {% for header in unit_exam.0.keys %}
+                                                  <th>{{ header }}</th>
+                                              {% endfor %}
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for exam in unit_exam %}
+                                              <tr>
+                                                  {% for value in exam.values %}
+                                                      <td>{{ value }}</td>
+                                                  {% endfor %}
+                                              </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                                  </div>
+                                  {% endfor %}
+                                  {% endif %}
+                                  {% endfor %}
+                                  <h2>Important Notice</h2>
+                                  <h3>Daily Classes Will cancelled After The Exams</h3>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--This is for the scrollbar in nav-->
+  <script>
+  const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+  
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+  
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+  </script>
+  <!--Java Script For controlling the tabs-->
+  <script>
+      /*This is for Exams Tab*/
+      function show(event, tabname) {
+          var i, tabcontent, tabbutton;
+          // Hide the tab content
+          tabcontent = document.getElementsByClassName("exam-tab-content");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          // Remove the active class from all tab buttons
+          tabbutton = document.getElementsByClassName("exam-tab-button");
+          for (i = 0; i < tabbutton.length; i++) {
+            tabbutton[i].className = tabbutton[i].className.replace(" active", "");
+          }
+          // Set the selected tab to active and display the content
+          document.getElementById(tabname).style.display = "block";
+          event.currentTarget.classList.add("active");
+      }
+
+  document.getElementById('defaultExamTab').click();
+  </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

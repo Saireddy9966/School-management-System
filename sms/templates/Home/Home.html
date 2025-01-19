@@ -1,0 +1,425 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta name="description" content="School_Home">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School_Home-Page</title>
+    <link rel="stylesheet" href="{% static 'sms/css/Home.css' %}">
+    <link rel="shortcut icon" href="{% static 'sms/img/school-logo (2).png' %}" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+    <div class="bg_img_placeholder">
+        <header>
+            <div class="nav_bar_placeholder">
+                <div class="img_placeholder">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'sms/img/school-logo (2).png' %}" alt="School_Logo">
+                    </a>
+                </div>
+
+                <!-- Burger Menu Icon -->
+                <div class="burger-menu">
+                    ☰
+                </div>
+
+                <!-- Navbar Content (will be hidden on mobile) -->
+                <div class="navbar_placeholder">
+                    <div class="navbar">
+                        <nav>
+                            <ul class="nav_links">
+                                <li class="nav_link" id="home-link"><a href="{% url 'home' %}"><span>Home</span></a>
+                                </li>
+                                <li class="nav_link" id="about-link"><a href="{% url 'about' %}"><span>About</span></a>
+                                </li>
+                                <li class="nav_link" id="contact-link"><a
+                                        href="{% url 'contact' %}"><span>Contact</span></a>
+                                </li>
+                                <li class="nav_link" id="admission-link"><a href="{% url 'admission' %}"><span>New
+                                            Admission</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="button_placeholder">
+                        <div class="login_btn_placeholder">
+                            <button type="button" class="login_btn"
+                                onclick="document.getElementById('id01').style.display='block'"><span>Login</span></button>
+                        </div>
+                        <div class="register_btn_placeholder">
+                            <button type="button" class="register_btn"
+                                onclick="document.getElementById('id02').style.display='block'"><span>Register</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main_header_placeholder">
+            <div class="main_header">
+                <h1 class="main_title"><span>Empowering Tomorrow's</span></h1>
+                <h1 class="main_title"><span>Leaders Today</span></h1>
+            </div>
+            <div class="sub_header">
+                <p class="sub_title"><span>Discover a place where young minds flourish through </span></p>
+                <p class="sub_title"><span>innovative education and community</span></p>
+                <p class="sub_title"><span>engagement at our nurturing,</span></p>
+                <p class="sub_title"><span> forward-thinking school</span></p>
+            </div>
+            <div class="explore_btn_placeholder">
+                <a href="#"><button type="button" class="explore_btn"><span>Explore Now</span></button></a>
+            </div>
+        </div>
+    </div>
+    <div class="main_container">
+        <div class="container white">
+            <div class="about_section">
+                <div class="grid_container">
+                    <div class="grid_text_placeholder">
+                        <div class="about_main_header">
+                            <h2 class="about_main_title">ABOUT US</h2>
+                        </div>
+                        <div class="about_sub_header">
+                            <h1 class="about_sub_title">Discover Our Story</h1>
+                        </div>
+                        <div class="about_main_text">
+                            <p class="about_text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae
+                                vestibulum vestibulum.
+                                Cras venenatis euismod malesuada. Nullam ac erat ante. Nulla facilisi. Sed dignissim
+                                libero eu augue tincidunt,
+                                et dignissim risus ullamcorper. Curabitur ac sem non urna aliquet porttitor. Praesent
+                                nec orci non risus consectetur
+                                tincidunt vel vel nisi. Duis at semper urna, ut ullamcorper risus. Phasellus vel arcu
+                                nec arcu sollicitudin faucibus.
+                            </p>
+                        </div>
+                        <div class="about_btn_placeholder">
+                            <a href="{% url 'contact' %}"><button type="button" class="about_btn">Find Out
+                                    More</button></a>
+                        </div>
+                    </div>
+                    <div class="grid_img_placeholder">
+                        <img src="https://via.placeholder.com/300x300" alt="about">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container black">
+            <div class="gallery_header_placeholder">
+                <hr>
+                <h1 class="gallery_header">Get Connected</h1>
+                <div class="gallery-wrap">
+                    <div class="item item-1"></div>
+                    <div class="item item-2"></div>
+                    <div class="item item-3"></div>
+                    <div class="item item-4"></div>
+                    <div class="item item-5"></div>
+                    <div class="item item-6"></div>
+                    <div class="item item-7"></div>
+                    <div class="item item-8"></div>
+                    <div class="item item-9"></div>
+                    <div class="item item-10"></div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="container white">
+            <div class="events_section margin-top">
+                <div class="grid_container gap-50px">
+                    <div class="main_event">
+                        <div class="main_event_main_header">
+                            <h1 class="event_main_title">Events & News</h1>
+                        </div>
+                        <div class="main_event_sub_header">
+                            <h4 class="event_sub_title">Stay Updated</h4>
+                        </div>
+                        <div class="main_event_main_text">
+                            <p class="main_event_text">Dive into the heart of our community with the latest updates and
+                                upcoming events. From annual festivals and sports competitions to guest lectures and
+                                workshops, our events section keeps you connected.Don't miss out on any news that shapes
+                                the life and the spirit of the school</p>
+                        </div>
+                        <div class="main_event_btn_placeholder">
+                            <button type="button" class="event_btn"><span>View More</span></button>
+                        </div>
+                        <div class="main_event_img_placeholder">
+                            <img src="https://via.placeholder.com/500x300" alt="events">
+                        </div>
+                    </div>
+                    <div class="sub_event">
+                        <div class="sub_event_1">
+                            <div class="sub_event_img_placeholder">
+                                <img src="https://via.placeholder.com/500x300" alt="events">
+                            </div>
+                            <div class="sub_event_div">
+                                <div class="sub_event_sub_header">
+                                    <h4 class="event_sub_title">Stay Updated</h4>
+                                </div>
+                                <div class="sub_event_main_text">
+                                    <p class="sub_event_text">Dive into the heart of our community with the latest
+                                        updates and
+                                        upcoming events. From annual festivals and sports competitions to guest lectures
+                                        and
+                                        workshops, our events section keeps you connected.Don't miss out on any news
+                                        that
+                                        shapes
+                                        the life and the spirit of the school</p>
+                                </div>
+
+                                <div class="sub_event_btn_placeholder">
+                                    <button type="button" class="event_btn"><span>View More</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_event_2">
+                            <div class="event_sub_header">
+                                <h4 class="event_sub_title">Stay Updated</h4>
+                            </div>
+                            <div class="event_main_text">
+                                <p class="event_text">Dive into the heart of our community with the latest updates and
+                                    upcoming events. From annual festivals and sports competitions to guest lectures and
+                                    workshops, our events section keeps you connected.Don't miss out on any news that
+                                    shapes
+                                    the life and the spirit of the school</p>
+                            </div>
+                            <div class="event_btn_placeholder">
+                                <button type="button" class="event_btn"><span>View More</span></button>
+                            </div>
+                            <div class="event_img_placeholder">
+                                <img src="https://via.placeholder.com/500x300" alt="events">
+                            </div>
+                        </div>
+                        <div class="sub_event_3">
+                            <div class="event_sub_header">
+                                <h4 class="event_sub_title">Stay Updated</h4>
+                            </div>
+                            <div class="event_main_text">
+                                <p class="event_text">Dive into the heart of our community with the latest updates and
+                                    upcoming events. From annual festivals and sports competitions to guest lectures and
+                                    workshops, our events section keeps you connected.Don't miss out on any news that
+                                    shapes
+                                    the life and the spirit of the school</p>
+                            </div>
+                            <div class="event_btn_placeholder">
+                                <button type="button" class="event_btn"><span>View More</span></button>
+                            </div>
+                            <div class="event_img_placeholder">
+                                <img src="https://via.placeholder.com/500x300" alt="events">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <footer>
+        <div class="footer-container">
+            <!-- Logo and School Name -->
+            <div class="footer-logo">
+                <img src="{% static 'sms/img/school-logo (2).png' %}" alt="School Logo">
+                <h1>High School</h1>
+            </div>
+            <!-- Navigation Links -->
+            <nav class="footer-nav">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'admission' %}">New Admission</a>
+            </nav>
+            <!-- Footer Description -->
+            <p class="footer-description">
+                Welcome to High School, where we nurture young minds to achieve their full potential.
+                Join our vibrant community dedicated to excellence in education, personal growth, and lifelong learning.
+                Contact us today!
+            </p>
+            <!-- Social Media Icons -->
+            <div class="footer-social">
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/facebook-new.png" alt="Facebook"></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/instagram-new.png"
+                        alt="Instagram"></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/FFFFFF/linkedin.png" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </footer>
+    <div id="id01" class="modal">
+        <div class="login-container">
+            <form id="login" class="modal-content animate" action="{% url 'home' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="login" value="1">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="loginbtn">Login</button>
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="clearForm()" class="cancelbtn">Cancel</button>
+                    <span class="psw"><a href="#">Forgot password?</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="id02" class="modal">
+        <div class="login-container">
+            <form method="post" class="modal-content animate" action="{% url 'home' %}" id="register">
+                {% csrf_token %}
+                <input type="hidden" name="register" value="1">
+                <label for="user_type">Select User Type:</label>
+                <select name="user_type" id="user_type">
+                    <option value="" selected disabled>Select</option>
+                    <option value="staff">Staff</option>
+                    <option value="faculty">Faculty</option>
+                    <option value="students">Student</option>
+                    <option value="parents">Parent</option>
+                </select>
+
+                <div id="staff_form" style="display: none;">
+                    <h2>Staff Profile</h2>
+                    {{ registration_form.as_p }}
+                    {{ staff_form.as_p }}
+                </div>
+
+                <div id="faculty_form" style="display: none;">
+                    <h2>Faculty Profile</h2>
+                    {{ registration_form.as_p }}
+                    {{ faculty_form.as_p }}
+                </div>
+
+                <div id="students_form" style="display: none;">
+                    <h2>Student Profile</h2>
+                    {{ registration_form.as_p }}
+                    {{ students_form.as_p }}
+                </div>
+
+                <div id="parents_form" style="display: none;">
+                    <h2>Parent Profile</h2>
+                    {{ registration_form.as_p }}
+                    {{ parents_form.as_p }}
+                </div>
+
+                <button type="submit" class="loginbtn">Submit</button>
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="registerclearForm()" class="cancelbtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const classSelect = document.getElementById('id_class_name');
+            const sectionSelect = document.getElementById('id_section_linked');
+            const sections = JSON.parse('{{ sections_json|escapejs }}');
+
+            classSelect.addEventListener('change', function () {
+                const selectedClassId = this.value;
+                sectionSelect.innerHTML = '<option value="">---------</option>';
+                sections.forEach(function (section) {
+                    if (section.fields.class_linked === parseInt(selectedClassId)) {
+                        const option = document.createElement('option');
+                        option.value = section.pk;
+                        option.text = section.fields.name;
+                        sectionSelect.appendChild(option);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const classSelect = document.getElementById('id_class_assigned');
+            const sectionSelect = document.getElementById('id_section_assigned');
+            const sections = JSON.parse('{{ sections_json|escapejs }}');
+
+            classSelect.addEventListener('change', function () {
+                const selectedClassId = this.value;
+                sectionSelect.innerHTML = '<option value="">---------</option>';
+                sections.forEach(function (section) {
+                    if (section.fields.class_linked === parseInt(selectedClassId)) {
+                        const option = document.createElement('option');
+                        option.value = section.pk;
+                        option.text = section.fields.name;
+                        sectionSelect.appendChild(option);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#user_type").change(function () {
+                var selectedUserType = $(this).val();
+                $("#staff_form, #faculty_form, #students_form, #parents_form").hide();
+
+                if (selectedUserType === 'staff') {
+                    $("#staff_form").show();
+                } else if (selectedUserType === 'faculty') {
+                    $("#faculty_form").show();
+                } else if (selectedUserType === 'students') {
+                    $("#students_form").show();
+                } else if (selectedUserType === 'parents') {
+                    $("#parents_form").show();
+                }
+
+                // Disable input elements of the unselected forms
+                $("#staff_form :input, #faculty_form :input, #students_form :input, #parents_form :input").prop("disabled", true);
+                // Enable input elements of the selected form
+                $("#" + selectedUserType + "_form :input").prop("disabled", false);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginAlerts = document.querySelectorAll('#id01 .alert');
+            if (loginAlerts.length > 0) {
+                document.getElementById("id01").style.display = 'block';
+            }
+
+            const cancelButton = document.querySelector('#id01 .cancelbtn');
+            cancelButton.addEventListener('click', cancelForm);
+        });
+
+        function clearForm() {
+            document.querySelectorAll('#id01 .alert').forEach(alert => alert.remove());
+            document.getElementById("login").reset();
+        }
+
+        function cancelForm() {
+            document.getElementById("id01").style.display = 'none';
+            clearForm();
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const registerAlerts = document.querySelectorAll('#id02 .alert');
+            if (registerAlerts.length > 0) {
+                document.getElementById("id02").style.display = 'block';
+            }
+        });
+
+        function registerclearForm() {
+            document.getElementById("register").reset();
+            document.querySelectorAll('#id02 .alert').forEach(alert => alert.remove());
+            document.getElementById("id02").style.display = 'none';
+        }
+    </script>
+
+    <script src="{% static 'sms/js/navbar.js' %}"></script>
+    <script src="{% static 'sms/js/mobileview.js' %}"></script>
+</body>
+
+</html>

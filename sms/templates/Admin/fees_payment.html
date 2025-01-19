@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Fees Payment</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-fee">
+                  <div class="fee-button">
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                              <span aria-hidden="true" id="add-payment-symbol"><strong>+</strong></span>
+                              <span>Add Payment</span>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="created-fee-container" id="payment-list">
+                      <div class="fee-collapsible-content">
+                          {% for cls, sections in payments_by_class_section_student.items %}
+                          {% for section, students in sections.items %}
+                          <!--This is for opening the Collapsible content-->
+                          <div class="created-fee" id="collapsible">
+                              <div class="class-name-fee">
+                                  <h2>Class {{ cls.name }} - {{ section.name }}</h2>
+                              </div>
+                          </div>
+                          <!--This is for writing collapsible content-->
+                          <div class="class-fee-content">
+                              <table>
+                                  <thead>
+                                      <tr>
+                                          <th>S.no</th>
+                                          <th>Student Name</th>
+                                          <th>Bus Fee<br>(Paid/Unpaid)</th>
+                                          <th>Mess Fee<br>(Paid/Unpaid)</th>
+                                          <th>Tuition Fee<br>(Paid/Unpaid)</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for student in students %}
+                                          <tr>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ student.student_name }}</td>
+                                              <td>{{ student.Bus_Fees }} / {{ student.Bus_Pending }}</td>
+                                              <td>{{ student.Mess_Fees }} / {{ student.Mess_Pending }}</td>
+                                              <td>{{ student.Tuition_Fees }} / {{ student.Tuition_Pending }}</td>
+                                          </tr>
+                                      {% endfor %}    
+                                  </tbody>
+                              </table>
+                          </div>
+                          {% endfor %}
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--This brings up the class adding form-->
+      <div id="id01" class="modal" style="display: none;">
+          <form id="marks-form" class="modal-content animate" action="{% url 'fees_payment' %}" method="post">
+              {% csrf_token %}
+              <span class="close" onclick="closePaymentForm()">&times;</span>
+              <!-- Class selection dropdown -->
+              <div class="section-selector">
+                  <label for="select-class">Select Class</label>
+                  <select name="class_linked" id="select-class" required>
+                      <option value="">Select a class</option>
+                      {% for class_item in classes %}
+                      <option value="{{ class_item.id }}">{{ class_item.name }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+              <!-- Section selection dropdown -->
+              <div class="section-selector">
+                  <label for="select-section">Select Section</label>
+                  <select name="section_linked" id="select-section" required>
+                      <option value="" disabled selected>Select Section</option>
+                      {% for section_item in sections %}
+                      <option value="{{ section_item.id }}">{{ section_item.name }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+              <!-- Student selection dropdown -->
+              <div class="student-selector">
+                  <label for="select-student">Select Student</label>
+                  <select name="student" id="select-student" required>
+                      <option value="" disabled selected>Select Student</option>
+                      {% for student_item in students %}
+                      <option value="{{ student_item.id }}">{{ student_item.name }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+              <h1>All Fees Choices</h1>
+              <ul>
+                  {% for choice in fees_types %}
+                  <li>
+                      <input type="checkbox" id="{{ choice }}_not_applicable" name="{{ choice }}_not_applicable"
+                          onchange="toggleFeeFields(this, '{{ choice }}')">
+                      <label for="{{ choice }}_not_applicable">Not Applicable</label><br>
+                      <strong>{{ choice }}</strong>:<br>
+                      Payment Type:
+                      <select id="{{ choice }}_payment_type" name="{{ choice }}_payment_type" required>
+                          <option value="" disabled selected>Select Payment Type</option>
+                          {% for payment_choice in payment_types %}
+                          <option value="{{ payment_choice }}">{{ payment_choice }}</option>
+                          {% endfor %}
+                      </select><br>
+                      Amount:
+                      <input type="number" id="{{ choice }}_amount" name="{{ choice }}_amount" step="0.01"
+                          required><br>
+                  </li>
+                  {% endfor %}
+              </ul>
+              Receipt Number:
+              <input type="number" id="receipt_number" name="receipt_number" required>
+              <div class="submit-button">
+                <button type="submit">Submit</button>
+                <button type="button" onclick="closePaymentForm()"
+                    class="cancelbtn">Cancel</button>
+              </div>
+
+              <script>
+                  document.addEventListener("DOMContentLoaded", function () {
+                      const classSelect = document.getElementById('select-class');
+                      const sectionSelect = document.getElementById('select-section');
+                      const sections = JSON.parse('{{ sections_json|escapejs }}');
+
+                      classSelect.addEventListener('change', function () {
+                          const selectedClassId = this.value;
+                          sectionSelect.innerHTML = '<option value="">---------</option>';
+                          sections.forEach(function (section) {
+                              if (section.fields.class_linked === parseInt(selectedClassId)) {
+                                  const option = document.createElement('option');
+                                  option.value = section.pk;
+                                  option.text = section.fields.name;
+                                  sectionSelect.appendChild(option);
+                              }
+                          });
+                      });
+                  });
+              </script>
+              <script>
+                  document.addEventListener("DOMContentLoaded", function () {
+                      const sectionSelect = document.getElementById('select-section');
+                      const studentSelect = document.getElementById('select-student');
+                      const students = JSON.parse('{{ students_json|escapejs }}');
+
+                      sectionSelect.addEventListener('change', function () {
+                          const selectedSectionId = this.value;
+                          studentSelect.innerHTML = '<option value="">--</option>';
+                          students.forEach(function (student) {
+                              if (student.fields.section_linked === parseInt(selectedSectionId)) {
+                                  const option = document.createElement('option');
+                                  option.value = student.pk;
+                                  option.text = student.fields.name;
+                                  studentSelect.appendChild(option);
+                              }
+                          });
+                      });
+                  });
+              </script>
+              <script>
+                  function toggleFeeFields(checkbox, feeType) {
+                      const paymentTypeSelect = document.getElementById(`${feeType}_payment_type`);
+                      const amountInput = document.getElementById(`${feeType}_amount`);
+                      if (checkbox.checked) {
+                          paymentTypeSelect.disabled = true;
+                          amountInput.disabled = true;
+                      } else {
+                          paymentTypeSelect.disabled = false;
+                          amountInput.disabled = false;
+                      }
+                  }
+              </script>
+              <!--This is for the collapsible content-->
+              <script>
+                  var coll = document.querySelectorAll("#collapsible");
+                  var i;
+
+                  for (i = 0; i < coll.length; i++) {
+                      coll[i].addEventListener("click", function () {
+                          this.classList.toggle("active");
+                          var content = this.nextElementSibling;
+                          if (content.style.display === "block") {
+                              content.style.display = "none";
+                          } else {
+                              content.style.display = "block";
+                          }
+                      });
+                  }
+              </script>
+          </form>
+      </div>
+      <!--This is for resetting the form-->
+      <script>
+          function closePaymentForm(){
+              formData = document.getElementById('marks-form');
+              formData.reset();
+              document.getElementById('id01').style.display='none';
+
+          }
+      </script>
+      <!--This JavaScript is for scrolling to the active link in the side navigation bar-->
+      <script>
+          document.addEventListener("DOMContentLoaded", function() {
+              const activeLink = document.querySelector("a.active");
+              if (activeLink) {
+                  const linkId = activeLink.id;
+                  const linkElement = document.getElementById(linkId);
+                  linkElement.scrollIntoView({ behavior: "smooth" });
+              }
+          });
+      </script>
+      <script>
+      const nav = document.querySelector('nav');
+
+      nav.addEventListener('scroll', () => {
+          nav.classList.add('scrolling');
+      });
+
+      nav.addEventListener('mouseleave', () => {
+          nav.classList.remove('scrolling');
+      });
+
+      nav.addEventListener('mouseover', () => {
+          nav.classList.add('scrolling');
+      });
+      </script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

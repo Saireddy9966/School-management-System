@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Exams Timings </li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="admin-exams">
+                  <div class="exams-button">
+                      <div class="add-button">
+                          <button type="button" onclick="document.getElementById('id01').style.display = 'block'">
+                              <span aria-hidden="true" id="add-exams-symbol"><strong>+</strong></span>
+                              <span>Add Exam Timings</span>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="created-exams-container" id="exams-list">
+                      <div class="exam-tabs">
+                          <button type="button" class="exam-tab" onclick="openTab(event, 'unit-test')" id="defaultTab"><span>Unit-Test</span></button>
+                          <button type="button" class="exam-tab" onclick="openTab(event, 'quarterly')"><span>Quarterly</span></button>
+                          <button type="button" class="exam-tab" onclick="openTab(event, 'half-yearly')"><span>Half-Yearly</span></button>
+                          <button type="button" class="exam-tab" onclick="openTab(event, 'annually')"><span>Annually</span></button>
+                      </div>
+                      <div class="exam-content" id="unit-test">
+                          <h1>Unit-Test</h1>
+                          {% for exam_type, marks in exam_type_dict.items %}
+                          {% if exam_type == "Unit Test" %}
+                          {% for unit_test_number, unit_marks in marks.items %}
+                          <h3>{{ exam_type }} - {{ unit_test_number }}</h3>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Class</th>
+                                      <th>Section</th>
+                                      <th>File</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for mark in unit_marks %}
+                                  <tr>
+                                      <td>{{ mark.class_linked.name }}</td>
+                                      <td>{{ mark.section_linked.name }}</td>
+                                      <td><a href="{{ mark.file.url }}" download>Download</a></td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                          {% endfor %}
+                          {% endif %}
+                          {% endfor %}
+                      </div>
+                      <div class="exam-content" id="quarterly">
+                          <h1>Quarterly</h1>
+                          {% for exam_type, marks in exam_type_dict.items %}
+                          {% if exam_type == "Quarterly" %}
+                          {% if marks %}
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Class</th>
+                                      <th>Section</th>
+                                      <th>File</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for mark in marks %}
+                                  <tr>
+                                      <td>{{ mark.class_linked.name }}</td>
+                                      <td>{{ mark.section_linked.name }}</td>
+                                      <td><a href="{{ mark.file.url }}" download>Download</a></td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                          {% endif %}
+                          {% endif %}
+                          {% endfor %}
+                      </div>
+                      <div class="exam-content" id="half-yearly">
+                          <h1>Half-Yearly</h1>
+                          {% for exam_type, marks in exam_type_dict.items %}
+                          {% if exam_type == "Half Yearly" %}
+                          {% if marks %}
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Class</th>
+                                      <th>Section</th>
+                                      <th>File</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for mark in marks %}
+                                  <tr>
+                                      <td>{{ mark.class_linked.name }}</td>
+                                      <td>{{ mark.section_linked.name }}</td>
+                                      <td><a href="{{ mark.file.url }}" download>Download</a></td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                          {% endif %}
+                          {% endif %}
+                          {% endfor %}
+                      </div>
+                      <div class="exam-content" id="annually">
+                          <h1>Annually</h1>
+                          {% for exam_type, marks in exam_type_dict.items %}
+                          {% if exam_type == "Annual" %}
+                          {% if marks %}
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Class</th>
+                                      <th>Section</th>
+                                      <th>File</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for mark in marks %}
+                                  <tr>
+                                      <td>{{ mark.class_linked.name }}</td>
+                                      <td>{{ mark.section_linked.name }}</td>
+                                      <td><a href="{{ mark.file.url }}" download>Download</a></td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                          {% endif %}
+                          {% endif %}
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+<!--This brings up the class adding form-->
+<div id="id01" class="modal" style="display: none;">
+<form id="exam-form" class="modal-content animate" action="{% url 'exam' %}" method="post"
+  enctype="multipart/form-data">
+  {% csrf_token %}
+  {% if error_message %}
+  <div class="error">{{ error_message }}</div>
+  {% endif %}
+  <span class="close" onclick="closeExamsForm()">&times;</span>
+  <div class="container">
+      <div class="class-section-select-container">
+          <div class="class-selector">
+              <label for="select-class">Select Class</label>
+              <select name="class_linked" id="select-class" required>
+                  <option value="">Select a class</option>
+                  {% for class in classes %}
+                  <option value="{{ class.id }}">{{ class.name }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div class="section-selector">
+              <label for="select-section">Section</label>
+              <select name="section_linked" id="select-section" required>
+                  <option value="" disabled selected>Select Section</option>
+                  {% for section in sections %}
+                  <option value="{{ section.id }}">{{ section.name }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+      </div>
+      <div class="exam-type-selector">
+          <div class="select-exam-type">
+              <label for="exam-type">Exam Type</label>
+              <select name="exam_type" id="exam-type" required>
+                  <option value="" disabled selected>Select Exam Type</option>
+                  {% for exam_type in exam_types %}
+                  <option value="{{ exam_type }}">{{ exam_type }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div class="select-unit-test-number">
+              <label for="unit-test-number">Unit-Test Number</label>
+              <input type="text" placeholder="Enter Unit Test Number" name="unit_test_number"
+                  id="unit_test_number" required>
+          </div>
+      </div>
+      <div class="table-container">
+          {{ form.as_p }}
+    </div>
+    <div class="submit-button">
+        <button type="submit">Create Timetable</button>
+        <button type="button" onclick="closeExamsForm()" class="cancelbtn">Cancel</button>
+    </div>
+  </div>
+</form>
+</div>
+<script>
+function closeExamsForm(){
+  const formData = document.getElementById('exam-form');
+  formData.reset();
+  document.getElementById('id01').style.display='none';
+
+}
+</script>
+<!--This is for the scroll bar in the Nav Bar-->
+<script>
+const nav = document.querySelector('nav');
+
+nav.addEventListener('scroll', () => {
+nav.classList.add('scrolling');
+});
+
+nav.addEventListener('mouseleave', () => {
+nav.classList.remove('scrolling');
+});
+
+nav.addEventListener('mouseover', () => {
+nav.classList.add('scrolling');
+});
+</script>
+<!--This is for tabs switching-->
+<script>
+function openTab(event, examType){
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("exam-content");
+  for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("exam-tab");
+  for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(examType).style.display = "block";
+  event.target.className += " active";
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultTab").click();
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const examTypeSelect = document.getElementById('exam-type');
+  const unitTestNumberInput = document.getElementById('unit_test_number');
+
+  examTypeSelect.addEventListener('change', function () {
+      const selectedExamType = this.value;
+      if (selectedExamType === 'Unit Test') {
+          unitTestNumberInput.removeAttribute('disabled');
+      } else {
+          unitTestNumberInput.setAttribute('disabled', 'disabled');
+      }
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const classSelect = document.getElementById('select-class');
+  const sectionSelect = document.getElementById('select-section');
+
+  const sections = JSON.parse('{{ sections_json|escapejs }}');
+
+  classSelect.addEventListener('change', function () {
+      const selectedClassId = this.value;
+      sectionSelect.innerHTML = '<option value="">---------</option>';
+      sections.forEach(function (section) {
+          if (section.fields.class_linked === parseInt(selectedClassId)) {
+              const option = document.createElement('option');
+              option.value = section.pk;
+              option.text = section.fields.name;
+              sectionSelect.appendChild(option);
+          }
+      });
+  });
+});
+
+</script>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

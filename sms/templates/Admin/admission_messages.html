@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Admin/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Admin</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Academic Details</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="welcome-message">
+              <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Class of Admission</th>
+                    <th>Previous School Name</th>
+                    <th>Parent Name</th>
+                    <th>Parent Contact</th>
+                    <th>Created At</th>
+                </tr>
+                {% for admission in admissions %}
+                <tr>
+                    <td>{{ admission.name }}</td>
+                    <td>{{ admission.date_of_birth }}</td>
+                    <td>{{ admission.email }}</td>
+                    <td>{{ admission.address }}</td>
+                    <td>{{ admission.class_of_admission }}</td>
+                    <td>{{ admission.previous_school }}</td>
+                    <td>{{ admission.parent_name }}</td>
+                    <td>{{ admission.parent_contact }}</td>
+                    <td>{{ admission.created_at }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

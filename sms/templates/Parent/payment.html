@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Parent/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Parent</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Payment</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+            <div class="parent-payment">
+              <h1>Payment Confirmation</h1> 
+              <p>Student Name: {{ student_name }}</p>
+              <p>Class: {{ class_name }}</p>
+              <p>Section: {{ section_name }}</p>
+              <p>Fees Type: {{ fees_type }}</p>
+              <p>Amount to be Paid: ₹{{ amount }}</p>
+              <div class="payment-method">
+                <form action="{% url 'payment_callback' %}" method="POST">
+                  {% csrf_token %}
+                  <script
+                      src="https://checkout.razorpay.com/v1/checkout.js"
+                      data-key="{{ key_id }}"
+                      data-amount="{{ amount|floatformat:2 }}"
+                      data-currency="INR"
+                      data-order_id="{{ order_id }}"
+                      data-buttontext="Pay with RazorPay"
+                      data-name="School Fees Payment"
+                      data-description="Payment for {{ fees_type }}"
+                      data-image='"https://example.com/your_logo.jpg"'
+                      data-prefill.name=""
+                      data-prefill.email=""
+                      data-prefill.contact=""
+                      data-theme.color="#6988ff">
+                  </script>
+                  <input type="hidden" name="razorpay_order_id" value="{{ order_id }}">
+                  <input type="hidden" name="student_id" value="{{ student_id }}">
+                  <input type="hidden" name="fees_type" value="{{ fees_type }}">
+                  <input type="hidden" name="amount" value="{{ amount }}">
+              </form>
+  
+              <form action="{% url 'parent_fees' %}" method="get" style="margin-top: 10px;">
+                <div class="submit-button">
+                  <button type="submit" class="cancelbtn" style="width: 100%;">Cancel</button>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

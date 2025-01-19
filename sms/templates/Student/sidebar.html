@@ -1,0 +1,139 @@
+{% load static %}
+<!-- Sidebar Start -->
+
+<aside class="left-sidebar with-vertical">
+  <!-- Sidebar scroll-->
+  <div>
+    <div
+      class="brand-logo d-flex align-items-center justify-content-between pt-4"
+    >
+      <a href="{% url 'student_portal' %}" class="text-nowrap logo-img">
+        <img
+          src="{% static 'sms/img/pngtree-school-logo-png-image_6851480.png' %}"
+          class="dark-logo"
+          width="60"
+          alt="Ltw High School"/>
+          <span>LTW High School</span>
+      </a>
+      <div
+        class="close-btn d-lg-none d-block sidebartoggler cursor-pointer"
+        id="sidebarCollapse"
+      >
+        <i class="bi bi-x fs-8"></i>
+      </div>
+    </div>
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav scroll-sidebar pt-5" data-simplebar>
+      <ul id="sidebarnav">
+        <li class="sidebar-item active">
+          <a
+            class="sidebar-link"
+            href="{% url 'student_portal' %}"
+            aria-expanded="false"
+          >
+            <span>
+              <i class="bi bi-house-fill"></i>
+            </span>
+            <span class="hide-menu">Home</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'student_classes' %}"
+            aria-expanded="false"
+          >
+          <span>
+            <i class="bi bi-app"></i>
+          </span>
+            <span class="hide-menu">Class</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'student_attendance' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            two_pager
+            </span>
+            <span class="hide-menu">Attendance</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'student_timetable' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            date_range
+            </span>
+            <span class="hide-menu">Timetable</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'exam_timetable' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            calendar_clock
+          </span>
+            <span class="hide-menu">Exam Timetable</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link"
+            href="{% url 'student_marks' %}"
+            aria-expanded="false"
+          >
+          <span class="material-symbols-outlined">
+            score
+            </span>
+            <span class="hide-menu">Marks</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
+      <div class="hstack gap-3">
+        <div class="john-img">
+          <!-- <img
+            src="{% static 'assets/images/user-1.jpg' %}"
+            class="rounded-circle"
+            width="40"
+            height="40"
+            alt=""
+          /> -->
+        </div>
+        <div class="john-title">
+          <a href="{% url 'logout' %}">
+            <h6 class="mb-0 fs-4 fw-semibold">Signout</h6>
+          </a>
+          <span class="fs-2 text-dark"></span>
+        </div>
+        <button
+          class="border-0 bg-transparent ms-auto"
+          tabindex="0"
+          type="button"
+          aria-label="logout"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          data-bs-title="logout"
+        >
+          <a href="{% url 'logout' %}">
+            <i class="bi bi-power fs-6"> </i>
+          </a>
+        </button>
+      </div>
+    </div>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>
+
+<!-- Sidebar End -->

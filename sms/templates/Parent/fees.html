@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+  {% include 'Parent/sidebar.html' %}
+  <!-- Main wrapper -->
+  <div class="body-wrapper">
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+      <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+        <div class="card-body px-4 py-3">
+          <div class="row align-items-center">
+            <div class="col-9">
+              <h4 class="fw-semibold mb-8">Parent</h4>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page">Ward's Fees</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-3">
+              <div class="text-center mb-n5">
+                <img
+                  src="/static/assets/images/ChatBc.png"
+                  alt=""
+                  class="img-fluid mb-n4"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+          <div class="main-content">
+              <!--Type from here onwards-->
+              <div class="parent-fees-table">
+                  <div class="parent-fees">
+                      {% for fee in fees_summary %}
+                      <center><h3>Student: {{ fee.student }}</h3></center>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Fees Type</th>
+                                      <th>Total Fees</th>
+                                      <th>Fees Paid</th>
+                                      <th>Fees to be Paid</th>
+                                      <th>Action</th>
+                                      <th>Invoice</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for detail in fee.fees_details %}
+                                  <tr>
+                                      <td>{{ detail.fees_type }}</td>
+                                      <td>{{ detail.total_fees }}</td>
+                                      <td>
+                                          {% if detail.total_fees == 'N/A' %}
+                                              N/A
+                                          {% else %}
+                                              {{ detail.fees_paid }}
+                                          {% endif %}
+                                      </td>
+                                      <td>
+                                          {% if detail.total_fees == 'N/A' %}
+                                              N/A
+                                          {% elif detail.fees_to_be_paid == 0 %}
+                                              Fees Fully Paid
+                                          {% else %}
+                                              {{ detail.fees_to_be_paid }}
+                                          {% endif %}
+                                      </td>
+                                      <td>
+                                          {% if detail.fees_to_be_paid > 0 %}
+                                              <form method="post" action="{% url 'create_order' %}" class="fee-form">
+                                                  {% csrf_token %}
+                                                  <input type="hidden" name="student_id" value="{{ fee.student_id }}">
+                                                  <input type="hidden" name="fees_type" value="{{ detail.fees_type }}">
+                                                  <input type="hidden" name="amount" value="{{ detail.fees_to_be_paid|floatformat:2 }}">
+                                                  <button type="submit">Pay Now</button>
+                                              </form>
+                                          {% endif %}
+                                      </td>
+                                      <td>
+                                          {% if detail.fees_to_be_paid == 0 %}
+                                              {% for payment in fee.payments %}
+                                                  {% if payment.fees_type == detail.fees_type %}
+                                                      {% if payment.invoice %}
+                                                      <a href="{{ payment.invoice.url }}" target="_blank">View</a>|<a href="{{ payment.invoice.url }}" download>Download</a>
+                                                      {% endif %}
+                                                  {% endif %}
+                                              {% endfor %}
+                                          {% endif %}
+                                      </td>
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      {% endfor %}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--This is for the scrolling to the active a element in Nav Bar-->
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const activeLink = document.querySelector("a.active");
+          if (activeLink) {
+              const linkId = activeLink.id;
+              const linkElement = document.getElementById(linkId);
+              linkElement.scrollIntoView({ behavior: "smooth" });
+          }
+      });
+
+      //This is for the ScrollBar in nav
+      const nav = document.querySelector('nav');
+  
+          nav.addEventListener('scroll', () => {
+              nav.classList.add('scrolling');
+          });
+      
+          nav.addEventListener('mouseleave', () => {
+              nav.classList.remove('scrolling');
+          });
+      
+          nav.addEventListener('mouseover', () => {
+              nav.classList.add('scrolling');
+          });
+  </script>
+
+    </div>
+  </div>
+{% endblock %}
